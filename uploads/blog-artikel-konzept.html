@@ -1,0 +1,1677 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zahnheld Magazin | Blog-Artikel-Konzept v2 (Editorial + Marketing-Psychologie)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Zahnheld Tokens (Auszug aus Design System) */
+    --bg-page: #faf9f8;
+    --bg-surface: #ffffff;
+    --bg-inverse: #1d1e20;
+    --fg-1: #1d1e20;
+    --fg-2: #4b4d4e;
+    --fg-3: #747576;
+    --border-light: rgba(0,0,0,.05);
+    --border-strong: rgba(0,0,0,.5);
+    --zh-gradient: linear-gradient(222.92deg, #ec008c 0%, #ff6037 100%);
+    --zh-success: #2c723c;
+    --zh-error: #B40C1C;
+    --zh-warning: #E37E16;
+    --rounded-button: 1.25rem;
+    --rounded-lg: 1.6rem;
+    --rounded-input: 0.5rem;
+    --shadow-card: 0 2px 8px rgba(55,63,71,.08), 0 1px 2px rgba(55,63,71,.12);
+    --shadow-medium: 0 8px 16px rgba(55,63,71,.2);
+    --font-body: 'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, sans-serif;
+
+    /* Konzept-spezifische Annotation-Tokens (nur in diesem Konzept-File) */
+    --note-bg: #f4f1ec;
+    --note-line: #1d1e20;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg-page);
+    color: var(--fg-1);
+    font-weight: 400;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ───────── Konzept-Wrapper ───────── */
+  .concept-wrap { max-width: 1440px; margin: 0 auto; padding: 32px 24px 96px; }
+  .concept-banner {
+    background: var(--bg-inverse);
+    color: #fff;
+    padding: 22px 28px;
+    border-radius: var(--rounded-lg);
+    margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 28px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .concept-banner-left { display: flex; gap: 18px; align-items: center; min-width: 0; }
+  .concept-banner-mark {
+    width: 44px; height: 44px;
+    border-radius: 9999px;
+    background: var(--zh-gradient);
+    display: grid; place-items: center;
+    font-weight: 900; color: #fff;
+    flex-shrink: 0;
+  }
+  .concept-banner h1 {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -.005em;
+  }
+  .concept-banner p {
+    margin: 2px 0 0;
+    font-size: 13px;
+    color: rgba(255,255,255,.65);
+  }
+  .concept-banner-meta {
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .concept-pill {
+    font-size: 11px; line-height: 16px; font-weight: 700;
+    padding: 4px 10px; border-radius: 9999px;
+    background: rgba(255,255,255,.1);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  /* ───────── Magazin-Container (das eigentliche Template) ───────── */
+  .mag {
+    background: var(--bg-surface);
+    border-radius: var(--rounded-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Magazine Header */
+  .mag-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 48px;
+    border-bottom: 1px solid var(--fg-1);
+  }
+  .mag-logo {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .mag-nav {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    font-size: 14px;
+  }
+  .mag-nav a {
+    color: var(--fg-1);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .mag-nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .mag-nav-divider {
+    width: 1px; height: 16px; background: var(--fg-1); opacity: .3;
+  }
+  .mag-social { display: flex; gap: 14px; }
+  .mag-social svg { width: 16px; height: 16px; }
+
+  /* Massive Brand Headline */
+  .mag-brand {
+    padding: 24px 48px 8px;
+    border-bottom: 1px solid var(--fg-1);
+  }
+  .mag-brand h1 {
+    font-size: clamp(64px, 13vw, 200px);
+    line-height: .88;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  /* News Ticker */
+  .mag-ticker {
+    background: var(--fg-1);
+    color: #fff;
+    padding: 14px 48px;
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 500;
+    letter-spacing: .02em;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .mag-ticker-tag {
+    background: #fff;
+    color: var(--fg-1);
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: .08em;
+    padding: 3px 10px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .mag-ticker-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ───────── Article Hero (FYRRE-Style) ───────── */
+  .art-hero {
+    padding: 56px 48px 40px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .art-hero-left {
+    position: relative;
+  }
+  .art-hero h2 {
+    font-size: clamp(40px, 6.5vw, 92px);
+    line-height: .92;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+    margin: 0 0 16px;
+    text-transform: uppercase;
+  }
+  .art-hero-right {
+    padding-top: 12px;
+  }
+  .art-hero-deck {
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--fg-2);
+    margin: 0 0 28px;
+  }
+  .art-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 32px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .art-meta-item {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .art-meta-label {
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 3px;
+  }
+  .art-meta-value {
+    font-weight: 600;
+    color: var(--fg-1);
+  }
+  .art-tag {
+    display: inline-block;
+    font-size: 11px;
+    line-height: 16px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 9999px;
+    border: 1px solid var(--fg-1);
+    color: var(--fg-1);
+    background: transparent;
+    text-decoration: none;
+  }
+
+  /* Hero Image */
+  .art-hero-img {
+    margin: 0 48px;
+    aspect-ratio: 16/9;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.15)),
+      repeating-linear-gradient(135deg, #ddd 0 8px, #c8c8c8 8px 16px);
+    border-radius: var(--rounded-lg);
+    overflow: hidden;
+    position: relative;
+    display: grid;
+    place-items: center;
+    color: rgba(0,0,0,.4);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .art-hero-img::after {
+    content: "Hero-Bild | warmes Lifestyle-Foto";
+  }
+
+  /* ───────── Body Layout (2-Spalten + Sidebar) ───────── */
+  .art-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 56px;
+    padding: 64px 48px;
+  }
+  @media (max-width: 1100px) {
+    .art-body { grid-template-columns: 1fr; }
+    .art-hero { grid-template-columns: 1fr; gap: 24px; }
+    .art-hero-img { margin: 0 24px; }
+    .mag-header, .mag-brand, .mag-ticker, .art-hero, .art-body { padding-left: 24px; padding-right: 24px; }
+  }
+
+  .art-main { max-width: 720px; }
+  .zone {
+    margin-bottom: 56px;
+    position: relative;
+  }
+  .zone-tag {
+    position: absolute;
+    top: -28px;
+    left: -16px;
+    background: var(--fg-1);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    z-index: 2;
+  }
+
+  /* TL;DR / Quick Answer */
+  .tldr {
+    border: 2px solid var(--fg-1);
+    padding: 24px 28px;
+    margin-bottom: 0;
+  }
+  .tldr-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .tldr p {
+    font-size: 17px;
+    line-height: 26px;
+    margin: 0;
+    font-weight: 500;
+  }
+
+  /* TOC */
+  .toc {
+    border-top: 1px solid var(--fg-1);
+    border-bottom: 1px solid var(--fg-1);
+    padding: 20px 0;
+  }
+  .toc-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .toc ol {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+    counter-reset: toc;
+  }
+  .toc li {
+    counter-increment: toc;
+    padding: 8px 0;
+    border-top: 1px solid rgba(0,0,0,.08);
+    font-size: 15px;
+    line-height: 22px;
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+  }
+  .toc li:first-child { border-top: 0; }
+  .toc li::before {
+    content: counter(toc, decimal-leading-zero);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--fg-3);
+    flex-shrink: 0;
+    letter-spacing: .04em;
+  }
+
+  /* Body Chunks */
+  .chunk-h2 {
+    font-size: 28px;
+    line-height: 32px;
+    font-weight: 900;
+    letter-spacing: -0.015em;
+    margin: 0 0 16px;
+    text-transform: uppercase;
+  }
+  .chunk-h2-num {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    color: var(--fg-3);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .chunk p {
+    font-size: 16px;
+    line-height: 26px;
+    margin: 0 0 16px;
+    color: var(--fg-1);
+  }
+  .chunk p strong { font-weight: 700; }
+  .lead {
+    font-size: 19px;
+    line-height: 28px;
+    font-weight: 400;
+    color: var(--fg-1);
+  }
+
+  /* Stat / Pull / Quote */
+  .stat-card {
+    border-top: 1px solid var(--fg-1);
+    border-bottom: 1px solid var(--fg-1);
+    padding: 28px 0;
+    margin: 32px 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 28px;
+    align-items: center;
+  }
+  .stat-num {
+    font-size: 72px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+  }
+  .stat-label {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--fg-2);
+  }
+
+  .pullquote {
+    margin: 40px -8px;
+    padding: 32px 8px;
+    border-top: 2px solid var(--fg-1);
+    border-bottom: 2px solid var(--fg-1);
+  }
+  .pullquote-text {
+    font-size: 28px;
+    line-height: 36px;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    margin: 0 0 16px;
+    text-transform: uppercase;
+  }
+  .pullquote-cite {
+    font-size: 11px;
+    line-height: 16px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+  }
+
+  .lift {
+    margin: 24px 0;
+    padding: 0 0 0 24px;
+    border-left: 3px solid var(--fg-1);
+    font-size: 19px;
+    line-height: 28px;
+    font-weight: 600;
+  }
+
+  /* CTA Modi (Toggle Visualisierung) */
+  .cta-modes {
+    margin: 48px 0;
+    border-top: 2px solid var(--fg-1);
+    padding-top: 32px;
+  }
+  .cta-modes-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .cta-modes-head h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .cta-modes-switch {
+    display: flex;
+    border: 1px solid var(--fg-1);
+    border-radius: 9999px;
+    padding: 3px;
+    gap: 0;
+  }
+  .cta-modes-switch button {
+    border: 0;
+    background: transparent;
+    padding: 6px 14px;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 9999px;
+    color: var(--fg-1);
+  }
+  .cta-modes-switch button.active {
+    background: var(--fg-1);
+    color: #fff;
+  }
+  .cta-mode {
+    display: none;
+  }
+  .cta-mode.active {
+    display: block;
+  }
+
+  /* CTA Mode: Newsletter */
+  .cta-newsletter {
+    background: var(--fg-1);
+    color: #fff;
+    padding: 36px 32px;
+    border-radius: var(--rounded-lg);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .cta-newsletter h4 {
+    margin: 0 0 6px;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    line-height: 1.05;
+  }
+  .cta-newsletter p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 22px;
+    color: rgba(255,255,255,.7);
+  }
+  .cta-newsletter form {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .cta-newsletter input {
+    flex: 1;
+    padding: 12px 14px;
+    border: 0;
+    background: rgba(255,255,255,.1);
+    color: #fff;
+    border-radius: var(--rounded-input);
+    font-family: inherit;
+    font-size: 14px;
+  }
+  .cta-newsletter input::placeholder { color: rgba(255,255,255,.4); }
+  .btn-grad {
+    background: var(--zh-gradient);
+    color: #fff;
+    border: 0;
+    padding: 12px 22px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    border-radius: var(--rounded-button);
+    cursor: pointer;
+  }
+  .btn-grad:hover { filter: brightness(1.05) saturate(1.05); }
+
+  /* CTA Mode: Produkt */
+  .cta-product {
+    border: 2px solid var(--fg-1);
+    border-radius: var(--rounded-lg);
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 96px 1fr auto;
+    gap: 20px;
+    align-items: center;
+  }
+  .cta-product-img {
+    width: 96px; height: 96px;
+    border-radius: var(--rounded-input);
+    background: linear-gradient(135deg, #f1ece8, #e8e0d8);
+    display: grid;
+    place-items: center;
+    color: var(--fg-3);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .cta-product-meta {
+    min-width: 0;
+  }
+  .cta-product-eyebrow {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    margin-bottom: 4px;
+    display: block;
+  }
+  .cta-product-meta h4 {
+    margin: 0 0 4px;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.005em;
+  }
+  .cta-product-meta p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--fg-2);
+  }
+
+  /* CTA Mode: Aus */
+  .cta-off {
+    border-top: 1px solid var(--fg-1);
+    padding-top: 20px;
+    color: var(--fg-3);
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  /* FAQ */
+  .faq {
+    border-top: 2px solid var(--fg-1);
+    padding-top: 32px;
+  }
+  .faq-item {
+    border-bottom: 1px solid rgba(0,0,0,.15);
+    padding: 18px 0;
+  }
+  .faq-q {
+    margin: 0 0 8px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+  }
+  .faq-a {
+    margin: 0;
+    font-size: 15px;
+    line-height: 23px;
+    color: var(--fg-2);
+  }
+
+  /* Author Box */
+  .authorbox {
+    margin-top: 48px;
+    padding: 32px 28px;
+    background: #f4f1ec;
+    border-radius: var(--rounded-lg);
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .author-avatar {
+    width: 88px; height: 88px;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #d8d0c8, #b8aea0);
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 800;
+  }
+  .authorbox h4 {
+    margin: 0 0 4px;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.005em;
+  }
+  .authorbox .author-role {
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .authorbox p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--fg-2);
+  }
+
+  /* ───────── Sidebar (Verwandte Artikel, FYRRE-Style) ───────── */
+  .art-side {
+    border-left: 1px solid var(--fg-1);
+    padding-left: 32px;
+    align-self: start;
+    position: sticky;
+    top: 24px;
+  }
+  @media (max-width: 1100px) {
+    .art-side { border-left: 0; padding-left: 0; position: static; border-top: 2px solid var(--fg-1); padding-top: 32px; }
+  }
+  .side-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--fg-1);
+    display: block;
+  }
+  .side-card {
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  .side-card:last-child { border-bottom: 0; }
+  .side-card-img {
+    aspect-ratio: 4/3;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.18)),
+      repeating-linear-gradient(45deg, #d8d8d8 0 6px, #cccccc 6px 12px);
+    border-radius: var(--rounded-input);
+    margin-bottom: 12px;
+    display: grid;
+    place-items: center;
+    color: rgba(0,0,0,.35);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .side-card-img::after { content: "Foto"; }
+  .side-card-tags {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .side-card-tag {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid var(--fg-1);
+    border-radius: 9999px;
+  }
+  .side-card-meta {
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    gap: 12px;
+  }
+  .side-card h5 {
+    margin: 0 0 6px;
+    font-size: 17px;
+    line-height: 22px;
+    font-weight: 800;
+    letter-spacing: -0.005em;
+  }
+  .side-card p {
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 19px;
+    color: var(--fg-2);
+  }
+  .side-card-foot {
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    font-weight: 700;
+    display: flex;
+    gap: 16px;
+  }
+  .side-card-foot strong { color: var(--fg-1); }
+
+  /* Print-Promo Banner (FYRRE) */
+  .print-promo {
+    margin: 48px 0;
+    background: var(--fg-1);
+    color: #fff;
+    border-radius: var(--rounded-lg);
+    padding: 40px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 28px;
+    align-items: center;
+  }
+  .print-promo-issue {
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .print-promo h4 {
+    margin: 0 0 4px;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  .print-promo p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 22px;
+    color: rgba(255,255,255,.7);
+    max-width: 400px;
+  }
+  .print-promo .btn-grad { white-space: nowrap; }
+
+  /* ───────── Annotations Panel (rechts neben dem Konzept) ───────── */
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 24px;
+    align-items: start;
+  }
+  @media (max-width: 1280px) {
+    .layout { grid-template-columns: 1fr; }
+  }
+  .annotations {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  @media (max-width: 1280px) {
+    .annotations { position: static; max-height: none; }
+  }
+  .ann {
+    background: var(--bg-surface);
+    border: 1px solid var(--fg-1);
+    padding: 14px 16px;
+    font-size: 12.5px;
+    line-height: 18px;
+  }
+  .ann-num {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    margin-bottom: 4px;
+    display: block;
+  }
+  .ann h6 {
+    margin: 0 0 6px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: -0.005em;
+  }
+  .ann p { margin: 0 0 6px; color: var(--fg-2); }
+  .ann .src {
+    font-size: 10px;
+    color: var(--fg-3);
+    font-style: italic;
+    letter-spacing: .02em;
+  }
+
+  /* ───────── Spec-Sektion (unter dem Magazin) ───────── */
+  .spec-section {
+    margin-top: 64px;
+    background: var(--bg-surface);
+    border-radius: var(--rounded-lg);
+    padding: 48px;
+    box-shadow: var(--shadow-card);
+  }
+  .spec-section h2 {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+  }
+  .spec-section .lead {
+    color: var(--fg-2);
+    margin-bottom: 32px;
+    max-width: 720px;
+  }
+
+  .schema-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .schema-card {
+    border: 1px solid var(--fg-1);
+    padding: 20px 22px;
+  }
+  .schema-card .key {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    margin-bottom: 6px;
+    display: block;
+  }
+  .schema-card h4 {
+    margin: 0 0 6px;
+    font-size: 15px;
+    font-weight: 800;
+  }
+  .schema-card p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--fg-2);
+  }
+
+  /* Footer */
+  .concept-foot {
+    margin-top: 48px;
+    text-align: center;
+    color: var(--fg-3);
+    font-size: 12px;
+    letter-spacing: .04em;
+  }
+
+  /* ═══════════════════════════════════════════════
+   * RESPONSIVE
+   * Breakpoints:
+   *   1280  Annotations stacken unter dem Magazin
+   *   1100  Body und Hero werden einspaltig
+   *    900  Tablet, kompaktere Hierarchie
+   *    560  Mobile
+   *    400  Schmales Mobile
+   * ═══════════════════════════════════════════════ */
+
+  @media (max-width: 900px) {
+    .concept-wrap { padding: 20px 16px 64px; }
+    .concept-banner { padding: 18px 22px; gap: 14px 22px; }
+    .concept-banner h1 { font-size: 16px; line-height: 20px; }
+    .concept-banner p { font-size: 12px; line-height: 18px; }
+    .concept-banner-mark { width: 36px; height: 36px; font-size: 14px; }
+
+    .mag-header { padding: 18px 24px; flex-wrap: wrap; gap: 12px 16px; }
+    .mag-nav { gap: 18px; font-size: 13px; flex-wrap: wrap; }
+    .mag-nav-divider { display: none; }
+
+    .mag-brand { padding: 16px 24px 4px; }
+    .mag-ticker { padding: 12px 24px; font-size: 12px; gap: 14px; }
+
+    .art-hero { padding: 32px 24px 20px; gap: 20px; }
+    .art-hero-img { margin: 0 24px; aspect-ratio: 4 / 3; }
+    .art-hero-deck { font-size: 14px; line-height: 22px; margin-bottom: 20px; }
+    .art-meta-row { gap: 14px 22px; }
+
+    .art-body { padding: 48px 24px; gap: 32px; }
+    .art-side { padding-top: 32px; }
+
+    .chunk-h2 { font-size: 24px; line-height: 28px; }
+    .lead { font-size: 17px; line-height: 26px; }
+
+    .stat-card { gap: 22px; padding: 24px 0; }
+    .stat-num { font-size: 56px; }
+
+    .pullquote { margin: 32px 0; padding: 24px 0; }
+    .pullquote-text { font-size: 22px; line-height: 28px; }
+
+    .cta-modes-head { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .cta-newsletter { padding: 28px 22px; }
+    .cta-newsletter h4 { font-size: 22px; }
+    .cta-newsletter form { flex-direction: column; }
+
+    .cta-product {
+      grid-template-columns: 80px 1fr;
+      grid-template-rows: auto auto;
+      gap: 14px 18px;
+      padding: 22px;
+    }
+    .cta-product-img { width: 80px; height: 80px; }
+    .cta-product .btn-grad {
+      grid-column: 1 / -1;
+      justify-self: stretch;
+      text-align: center;
+    }
+
+    .authorbox {
+      grid-template-columns: 64px 1fr;
+      gap: 16px;
+      padding: 24px 22px;
+    }
+    .author-avatar { width: 64px; height: 64px; font-size: 22px; }
+
+    .print-promo {
+      grid-template-columns: auto 1fr;
+      gap: 20px 24px;
+      padding: 28px 24px;
+    }
+    .print-promo-issue { font-size: 44px; }
+    .print-promo h4 { font-size: 22px; }
+    .print-promo .btn-grad {
+      grid-column: 1 / -1;
+      justify-self: stretch;
+      text-align: center;
+    }
+
+    .spec-section { padding: 32px 24px; }
+    .spec-section h2 { font-size: 26px; }
+  }
+
+  @media (max-width: 560px) {
+    .concept-banner {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 16px 18px;
+    }
+    .concept-banner-meta { gap: 6px; }
+    .concept-pill { font-size: 10px; padding: 3px 8px; }
+
+    .mag-header { padding: 14px 18px; }
+    .mag-logo { font-size: 13px; letter-spacing: .05em; }
+    .mag-nav { gap: 14px; font-size: 12px; width: 100%; justify-content: flex-start; }
+    .mag-social { gap: 12px; margin-left: auto; }
+    .mag-social svg { width: 14px; height: 14px; }
+
+    .mag-brand { padding: 12px 18px 4px; }
+    .mag-ticker {
+      padding: 10px 18px;
+      font-size: 11px;
+      line-height: 16px;
+      gap: 10px;
+      flex-wrap: wrap;
+      white-space: normal;
+    }
+    .mag-ticker-tag { font-size: 9px; padding: 2px 7px; }
+    .mag-ticker-text { white-space: normal; overflow: visible; text-overflow: clip; }
+
+    .art-hero { padding: 24px 18px 16px; gap: 18px; }
+    .art-hero-img { margin: 0 18px; aspect-ratio: 1 / 1; }
+    .art-meta-row { gap: 12px 18px; }
+    .art-meta-label { font-size: 9px; }
+    .art-meta-item { font-size: 11px; }
+
+    .art-body { padding: 36px 18px; gap: 28px; }
+    .art-side { padding-top: 28px; padding-left: 0; }
+
+    .zone { margin-bottom: 40px; }
+    .zone-tag { left: -6px; font-size: 8px; padding: 3px 6px; }
+
+    .tldr { padding: 18px 18px; border-width: 2px; }
+    .tldr p { font-size: 15px; line-height: 22px; }
+
+    .toc { padding: 16px 0; }
+    .toc li { font-size: 14px; line-height: 20px; gap: 16px; }
+
+    .chunk-h2 { font-size: 22px; line-height: 26px; }
+    .chunk p { font-size: 15px; line-height: 24px; }
+    .lead { font-size: 16px; line-height: 24px; }
+
+    .stat-card {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 22px 0;
+    }
+    .stat-num { font-size: 48px; }
+    .stat-label { font-size: 13px; line-height: 19px; }
+
+    .pullquote { margin: 28px 0; padding: 22px 0; }
+    .pullquote-text { font-size: 19px; line-height: 25px; }
+
+    .lift { font-size: 16px; line-height: 24px; padding-left: 18px; }
+
+    .cta-modes-switch { width: 100%; }
+    .cta-modes-switch button {
+      flex: 1;
+      padding: 7px 8px;
+      font-size: 10px;
+      letter-spacing: .06em;
+    }
+    .cta-newsletter { padding: 22px 18px; }
+    .cta-newsletter h4 { font-size: 20px; }
+
+    .faq-q { font-size: 15px; }
+    .faq-a { font-size: 14px; line-height: 21px; }
+
+    .authorbox h4 { font-size: 16px; }
+    .authorbox p { font-size: 13px; line-height: 20px; }
+
+    .print-promo {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding: 24px 20px;
+    }
+    .print-promo-issue { font-size: 36px; }
+    .print-promo h4 { font-size: 20px; }
+    .print-promo p { font-size: 13px; line-height: 20px; }
+
+    .side-card { margin-bottom: 24px; padding-bottom: 24px; }
+    .side-card h5 { font-size: 16px; line-height: 21px; }
+    .side-card p { font-size: 13px; line-height: 18px; }
+
+    .spec-section { padding: 24px 18px; }
+    .spec-section h2 { font-size: 22px; }
+    .schema-card { padding: 16px 18px; }
+  }
+
+  @media (max-width: 400px) {
+    .mag-nav a:nth-child(n+4) { display: none; }
+    .art-meta-row .art-tag { order: 99; }
+  }
+
+  /* Helpers */
+  .nowrap { white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<div class="concept-wrap">
+
+  <div class="layout">
+
+    <!-- ════════════════ Magazine Container ════════════════ -->
+    <article class="mag">
+
+      <!-- Header -->
+      <div class="mag-header">
+        <div class="mag-logo">Zahnheld Magazin</div>
+        <nav class="mag-nav">
+          <a href="#">Magazin</a>
+          <a href="#">Wissenschaft</a>
+          <a href="#">Anwendung</a>
+          <a href="#">Autorinnen</a>
+          <span class="mag-nav-divider"></span>
+          <span class="mag-social">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 5.8a8 8 0 0 1-2.4.7 4 4 0 0 0 1.8-2.2 8 8 0 0 1-2.6 1 4 4 0 0 0-7 3.6 11.4 11.4 0 0 1-8.3-4.2 4 4 0 0 0 1.3 5.4 4 4 0 0 1-1.8-.5v.1a4 4 0 0 0 3.2 4 4 4 0 0 1-1.8.1 4 4 0 0 0 3.8 2.8A8 8 0 0 1 2 18.5a11.3 11.3 0 0 0 6.2 1.8c7.4 0 11.4-6.1 11.4-11.4v-.5A8 8 0 0 0 22 5.8z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M4 8l8 5 8-5"/></svg>
+          </span>
+        </nav>
+      </div>
+
+      <!-- Massive Brand Headline -->
+      <div class="mag-brand">
+        <h1>Pflege &amp; Wissen</h1>
+      </div>
+
+      <!-- News Ticker -->
+      <div class="mag-ticker">
+        <span class="mag-ticker-tag">News +++</span>
+        <span class="mag-ticker-text">Neue Cochrane-Metaanalyse zu Schallzahnbürsten +++ Borsten-Härte richtig wählen +++ Probeputzen jetzt 30 Tage +++ Magazin Ausgabe 03/2026 ist da</span>
+      </div>
+
+      <!-- ═══════ Article Hero (FYRRE Style) ═══════ -->
+      <header class="art-hero">
+        <div class="art-hero-left">
+          <span class="zone-tag">Zone 1 | Hook</span>
+          <h2>Hart zu Plaque,<br>sanft zu dir</h2>
+        </div>
+        <div class="art-hero-right">
+          <p class="art-hero-deck">Eine Cochrane-Metaanalyse mit 51 Studien zeigt einen klaren Sieger zwischen Hand- und Schallzahnbürste. Aber nur, wenn du diesen einen Anwendungsfehler vermeidest.</p>
+          <div class="art-meta-row">
+            <div class="art-meta-item">
+              <span class="art-meta-label">Text</span>
+              <span class="art-meta-value">Dr. Rebecca Klein</span>
+            </div>
+            <div class="art-meta-item">
+              <span class="art-meta-label">Datum</span>
+              <span class="art-meta-value">28. April 2026</span>
+            </div>
+            <div class="art-meta-item">
+              <span class="art-meta-label">Lesezeit</span>
+              <span class="art-meta-value">7 Min</span>
+            </div>
+            <div class="art-meta-item">
+              <span class="art-meta-label">Geprüft</span>
+              <span class="art-meta-value">DGZMK Konsens</span>
+            </div>
+            <a href="#" class="art-tag">Wissenschaft</a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Hero Image -->
+      <div class="art-hero-img"></div>
+
+      <!-- ═══════ Body (2-Spalten mit Sidebar) ═══════ -->
+      <div class="art-body">
+
+        <!-- Hauptspalte -->
+        <div class="art-main">
+
+          <!-- Zone 2: TL;DR -->
+          <section class="zone">
+            <span class="zone-tag">Zone 2 | TL;DR</span>
+            <div class="tldr">
+              <span class="tldr-label">Antwort in 30 Sekunden</span>
+              <p>Elektrische Zahnbürsten entfernen laut Cochrane-Review (2023) im Schnitt 21 Prozent mehr Plaque nach drei Monaten. Oszillierend-rotierende Modelle führen vor Schallzahnbürsten. Der Anwendungsfehler, der den Vorteil zunichtemacht: zu viel Druck. Mehr als 200 Gramm reduziert den Effekt um 40 Prozent.</p>
+            </div>
+          </section>
+
+          <!-- Zone 3: TOC -->
+          <section class="zone">
+            <span class="zone-tag">Zone 3 | Inhalt</span>
+            <nav class="toc">
+              <span class="toc-label">Inhalt</span>
+              <ol>
+                <li>Die Studienlage 2024 bis 2026</li>
+                <li>Oszillierend gegen Schall, der Direktvergleich</li>
+                <li>Der unterschätzte Anwendungsfehler</li>
+                <li>Wann eine Handzahnbürste die bessere Wahl bleibt</li>
+                <li>Empfehlung nach Anwendungstyp</li>
+                <li>Häufige Fragen</li>
+              </ol>
+            </nav>
+          </section>
+
+          <!-- Zone 4: Opening -->
+          <section class="zone chunk">
+            <span class="zone-tag">Zone 4 | Opening (PAS)</span>
+            <h2 class="chunk-h2">
+              <span class="chunk-h2-num">01 | Studienlage</span>
+              Die Datenbasis hinter dem Streit
+            </h2>
+            <p class="lead">Du putzt zwei Minuten, zweimal täglich, mit einer Zahnbürste, die du seit Jahren benutzt. Trotzdem zeigt die letzte Prophylaxe wieder Zahnstein. Der Grund liegt selten an der Disziplin, sondern fast immer an einer von drei Variablen: Werkzeug, Technik, Druck.</p>
+            <p>Die wichtigste Datenbasis ist das Cochrane-Review von Yaacob et al., in der jüngsten Aktualisierung 2023 mit 51 randomisierten Studien und über 4.600 Teilnehmern. Die Ergebnisse sind eindeutig genug, um endgültig Schluss mit dem Bauchgefühl zu machen.</p>
+
+            <!-- Stat Card -->
+            <div class="stat-card">
+              <div class="stat-num">21%</div>
+              <div class="stat-label">weniger Plaque nach drei Monaten elektrischer Anwendung gegenüber Handzahnbürste, gemessen am Quigley-Hein-Index. Quelle: Cochrane 2023.</div>
+            </div>
+          </section>
+
+          <!-- Zone 5: Evidence -->
+          <section class="zone chunk">
+            <span class="zone-tag">Zone 5 | Evidence</span>
+            <h2 class="chunk-h2">
+              <span class="chunk-h2-num">02 | Direktvergleich</span>
+              Oszillierend gegen Schall
+            </h2>
+            <p>Innerhalb der elektrischen Kategorie unterscheiden sich zwei Bauformen: oszillierend-rotierende Bürstenköpfe und Schallzahnbürsten. Die Cochrane-Daten zeigen einen kleinen, aber konsistenten Vorteil für oszillierend-rotierende Modelle bei Plaque-Reduktion. Bei Zahnfleischgesundheit liegen beide gleichauf.</p>
+
+            <!-- Pull Quote -->
+            <blockquote class="pullquote">
+              <p class="pullquote-text">Der Bürstenkopf-Typ ist relevant, aber sekundär. Entscheidend bleibt die Andruck-Kontrolle.</p>
+              <div class="pullquote-cite">Prof. Dr. M. Hellwig | Universitätsklinikum Freiburg | Quintessenz Verlag 2024</div>
+            </blockquote>
+
+            <p>Moderne Schallzahnbürsten mit Drucksensor liefern heute das robusteste Ergebnis im Praxisalltag. Wer auf das Gefühl statt auf die Anzeige vertraut, drückt im Schnitt 60 Prozent zu fest.</p>
+          </section>
+
+          <!-- Zone 6: Insight (Peak) -->
+          <section class="zone chunk">
+            <span class="zone-tag">Zone 6 | Peak Insight</span>
+            <h2 class="chunk-h2">
+              <span class="chunk-h2-num">03 | Anwendungsfehler</span>
+              Der unterschätzte Druck
+            </h2>
+            <p>In einer Beobachtungsstudie an der Charité (2022) drückten 63 Prozent der Probanden mit über 300 Gramm auf die Zahnbürste. Das ist deutlich über dem Optimum von 150 bis 200 Gramm. Der Effekt:</p>
+
+            <p class="lift">Zu starker Druck reduziert den Reinigungseffekt um bis zu 40 Prozent und beschleunigt Zahnfleischrückgang messbar nach 18 Monaten.</p>
+
+            <p>Die Lösung ist nicht teurer, sondern bewusster: Drei-Finger-Haltung statt Faustgriff. Bürste führen, nicht pressen. Sensor-Modelle nehmen dir die Disziplin ab, aber auch eine Handzahnbürste mit weichen Borsten erreicht hervorragende Werte, wenn der Druck stimmt.</p>
+          </section>
+
+          <!-- Zone 7: Differenzierung (Two-Sided) -->
+          <section class="zone chunk">
+            <span class="zone-tag">Zone 7 | Two-Sided</span>
+            <h2 class="chunk-h2">
+              <span class="chunk-h2-num">04 | Differenzierung</span>
+              Wann die Handzahnbürste gewinnt
+            </h2>
+            <p>Pauschale Empfehlungen sind unredlich. Es gibt Situationen, in denen die Handzahnbürste klar überlegen ist:</p>
+            <p>Bei freiliegenden Zahnhälsen mit ausgeprägter Empfindlichkeit. In den ersten 14 Tagen nach Parodontalbehandlung. Auf Reisen ohne Lademöglichkeit. Für Kinder unter drei Jahren als Zweitbürste, weil die Kontrolle stimmt.</p>
+          </section>
+
+          <!-- ═══════ CTA-Modi (Toggle visualisiert) ═══════ -->
+          <section class="zone cta-modes">
+            <span class="zone-tag">Zone 8 | CTA-Mode</span>
+            <div class="cta-modes-head">
+              <h3>CTA-Mode (Schalter im Section-Setting)</h3>
+              <div class="cta-modes-switch">
+                <button class="active" data-mode="newsletter">Newsletter</button>
+                <button data-mode="product">Produkt</button>
+                <button data-mode="off">Aus</button>
+              </div>
+            </div>
+
+            <!-- Newsletter Mode (Standard für Info-Magazin) -->
+            <div class="cta-mode active" data-mode="newsletter">
+              <div class="cta-newsletter">
+                <div>
+                  <h4>Alle 14 Tage ein Artikel.<br>Kein Werbemüll.</h4>
+                  <p>Das Zahnheld Magazin liefert dir kuratierte Wissenschaft, Praxistipps und Hintergründe direkt ins Postfach. Jederzeit abbestellbar.</p>
+                </div>
+                <form>
+                  <input type="email" placeholder="deine@email.de" />
+                  <button type="button" class="btn-grad">Anmelden</button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Produkt Mode (für Akquise-Inhalte) -->
+            <div class="cta-mode" data-mode="product">
+              <div class="cta-product">
+                <div class="cta-product-img">Produktfoto</div>
+                <div class="cta-product-meta">
+                  <span class="cta-product-eyebrow">Im Test überzeugt</span>
+                  <h4>Schallzahnbürste Pro</h4>
+                  <p>Mit Drucksensor. Die im Artikel besprochene Lösung gegen den 40-Prozent-Fehler.</p>
+                </div>
+                <button class="btn-grad nowrap">Jetzt 99,90 €</button>
+              </div>
+            </div>
+
+            <!-- Off Mode (für rein redaktionelle Tiefenstücke) -->
+            <div class="cta-mode" data-mode="off">
+              <div class="cta-off">CTA-Block ausgeblendet | rein redaktioneller Modus</div>
+            </div>
+          </section>
+
+          <!-- Zone 9: FAQ -->
+          <section class="zone faq">
+            <span class="zone-tag">Zone 9 | FAQ (AEO)</span>
+            <h2 class="chunk-h2" style="margin-bottom: 24px;">
+              <span class="chunk-h2-num">05 | Häufig gefragt</span>
+              FAQ
+            </h2>
+            <div class="faq-item">
+              <h4 class="faq-q">Wie oft sollte ich den Bürstenkopf wechseln?</h4>
+              <p class="faq-a">Alle 8 bis 12 Wochen, oder sobald die Borsten sichtbar gespreizt sind. Das ist evidenzbasierter Konsens der DGZMK.</p>
+            </div>
+            <div class="faq-item">
+              <h4 class="faq-q">Schadet eine elektrische Zahnbürste dem Zahnfleisch?</h4>
+              <p class="faq-a">Nein, sofern der Druck unter 200 Gramm bleibt. Studien zeigen sogar weniger Rezessionen als bei aggressiver Handputztechnik.</p>
+            </div>
+            <div class="faq-item">
+              <h4 class="faq-q">Reicht zweimal täglich putzen wirklich aus?</h4>
+              <p class="faq-a">Ja, wenn die Technik stimmt und Interdentalreinigung dazukommt. Frequenz ersetzt keine Qualität.</p>
+            </div>
+          </section>
+
+          <!-- Zone 10: Author Box -->
+          <section class="zone">
+            <span class="zone-tag">Zone 10 | Autorenbox</span>
+            <div class="authorbox">
+              <div class="author-avatar">RK</div>
+              <div>
+                <h4>Dr. med. dent. Rebecca Klein</h4>
+                <span class="author-role">Zahnärztin | Lehrauftrag Universität Köln</span>
+                <p>12 Jahre Praxis in Köln-Lindenthal, Schwerpunkt Parodontologie und Prävention. Schreibt für das Zahnheld Magazin über die Lücke zwischen Studienlage und Alltag. Mitglied der DGZMK.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Print Promo (FYRRE-Style) -->
+          <aside class="print-promo">
+            <div class="print-promo-issue">03<br>2026</div>
+            <div>
+              <h4>Magazin Ausgabe 03</h4>
+              <p>Diesen Sommer im Zahnheld Magazin: Mikrobiom, Bürstentechnik aus Skandinavien, Interview mit Prof. Hellwig.</p>
+            </div>
+            <button class="btn-grad nowrap">Lesen</button>
+          </aside>
+        </div>
+
+        <!-- ═══════ Sidebar (Verwandte Artikel) ═══════ -->
+        <aside class="art-side">
+          <span class="side-label">Auch lesenswert</span>
+
+          <div class="side-card">
+            <div class="side-card-img"></div>
+            <div class="side-card-tags">
+              <span class="side-card-tag">Anwendung</span>
+              <span class="side-card-tag">Pflege</span>
+            </div>
+            <h5>Drei-Finger-Haltung, in 90 Sekunden erklärt</h5>
+            <p>Warum der Faustgriff dein Zahnfleisch kostet, und wie du in einer Woche umtrainierst.</p>
+            <div class="side-card-foot">
+              <span>Text <strong>L. Jensen</strong></span>
+              <span>5 Min</span>
+            </div>
+          </div>
+
+          <div class="side-card">
+            <div class="side-card-img"></div>
+            <div class="side-card-tags">
+              <span class="side-card-tag">Wissenschaft</span>
+            </div>
+            <h5>Mikrobiom statt Mundwasser</h5>
+            <p>Was die neue Forschung zu Mundflora und Karies bedeutet.</p>
+            <div class="side-card-foot">
+              <span>Text <strong>R. Klein</strong></span>
+              <span>9 Min</span>
+            </div>
+          </div>
+
+          <div class="side-card">
+            <div class="side-card-img"></div>
+            <div class="side-card-tags">
+              <span class="side-card-tag">Service</span>
+            </div>
+            <h5>Wann der Bürstenkopf wirklich raus muss</h5>
+            <p>Acht Wochen, zwölf Wochen, oder doch nach Gefühl?</p>
+            <div class="side-card-foot">
+              <span>Text <strong>A. Hardy</strong></span>
+              <span>4 Min</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </article>
+
+    <!-- ════════════════ Annotations Sidebar ════════════════ -->
+    <aside class="annotations">
+      <div class="ann">
+        <span class="ann-num">Header</span>
+        <h6>Magazin-Tonalität statt Shop-Tonalität</h6>
+        <p>Editorial-Header signalisiert Wissens-Container, nicht Sale. Reduziert Skepsis bei Bestandskunden und stärkt Autorität bei Akquise.</p>
+        <div class="src">FYRRE Magazine; Brand-as-Editor Theorie</div>
+      </div>
+      <div class="ann">
+        <span class="ann-num">Brand-Headline</span>
+        <h6>Massive Display-Type</h6>
+        <p>Schafft Impact ohne Bilder, lädt das Magazin ästhetisch auf, transportiert Premium-Anspruch. Gleichzeitig print-magazin-Charakter.</p>
+        <div class="src">Massimo Vignelli; Cooper Hewitt</div>
+      </div>
+      <div class="ann">
+        <span class="ann-num">News Ticker</span>
+        <h6>Aktualität als Trust-Signal</h6>
+        <p>Suggeriert lebendige Redaktion. Kann manuell befüllt werden im Theme-Editor. Auch SEO-Anker für Featured-News.</p>
+        <div class="src">Edelman Trust Barometer 2024</div>
+      </div>
+      <div class="ann">
+        <span class="ann-num">Zone 1 | Hook</span>
+        <h6>Editorial-Headline mit Information Gap</h6>
+        <p>Loewenstein-Effekt aktiviert: Versprechen einer Lücke ("nur, wenn du diesen Fehler vermeidest") plus klare Spezifität (Studienzahl).</p>
+        <div class="src">Loewenstein 1994; Heath, Made to Stick</div>
+      </div>
+      <div class="ann">
+        <span class="ann-num">Meta-Row</span>
+        <h6>E-E-A-T komprimiert sichtbar</h6>
+        <p>Text, Datum, Lesezeit, Prüfsiegel als Editorial-Datenstrip. Google bewertet das, Mensch glaubt es. Druckkosten der Seriosität.</p>
+        <div class="src">Google Search Quality Guidelines 2024</div>
+      </div>
+      <div class="ann">
+        <span class="ann-num">Zone 2 | TL;DR</span>
+        <h6>Quick-Answer für AI Overviews</h6>
+        <p>40 bis 80 Wörter, eingerahmt mit harter Linie. Liefert Featured-Snippet- und LLM-Zitierfähigkeit. Reduziert Bounce für ungeduldige Leser.</p>
+        <div class="src">Backlinko 2023; Nielsen Norman Skim-Reading</div>
+      </div>
+      <div class="ann">
+        <span class="ann-num">Zone 3 | TOC</span>
+        <h6>Cognitive-Load-Reduktion</h6>
+        <p>Schwarz-weiße Editorial-Optik mit Zählern statt Bullet-Punkten. Auf Desktop sticky, hält Scroll-Fokus.</p>
+        <div class="src">Sweller, Cognitive Load Theory 1988</div>
+      </div>
+      <div class="ann">
+        <span class="ann-num">Stat Card</span>
+        <h6>Von-Restorff-Effekt</h6>
+        <p>72px-Zahl bricht typografisch das Schriftbild auf, isoliert die Kernaussage. Erinnerungswert plus 35 Prozent.</p>
+        <div class="src">Von Restorff 1933</div>
+      </div>
+      <div class="ann">
+        <span class="ann-num">Pull Quote</span>
+        <h6>Parasoziale Autorität</h6>
+        <p>Zitat-Block im Editorial-Stil mit klarem Quellenstempel. Vertrauen über Person plus Institution plus Jahr.</p>
+        <div class="src">Petty &amp; Cacioppo ELM</div>
+      </div>
+      <div class="ann">
+        <span class="ann-num">Zone 6 | Peak</span>
+        <h6>Peak-End-Regel</h6>
+        <p>Stärkster Insight in der Mitte des Artikels, visuell mit linkem Borderlift hervorgehoben. Zahlt auf Erinnerung ein.</p>
+        <div class="src">Kahneman, Thinking Fast and Slow</div>
+      </div>
+      <div class="ann">
+        <span class="ann-num">Zone 7 | Two-Sided</span>
+        <h6>Glaubwürdigkeit durch Gegenargument</h6>
+        <p>Ehrliche Differenzierung wirkt 1,8x glaubwürdiger als einseitige Empfehlung. Kritisch für Bestandskunden, die sich nicht verkauft fühlen wollen.</p>
+        <div class="src">Eisend Meta-Analyse 2007</div>
+      </div>
+      <div class="ann">
+        <span class="ann-num">Zone 8 | CTA-Modi</span>
+        <h6>Ein Template, drei Use-Cases</h6>
+        <p>Newsletter (Default), Produkt (Akquise), Aus (rein editorial). Schalter pro Artikel im Theme-Editor. Magenta-Coral-Gradient nur in Newsletter und Produkt.</p>
+        <div class="src">Cialdini Reziprozität; Iyengar Choice</div>
+      </div>
+      <div class="ann">
+        <span class="ann-num">Zone 9 | FAQ</span>
+        <h6>Schema FAQPage und Zeigarnik</h6>
+        <p>Bedient AEO-Sichtbarkeit, Schema.org Rich Result und schließt offene Fragen mental ab. Drei bis fünf Fragen optimal.</p>
+        <div class="src">Zeigarnik 1927; Google FAQPage Docs</div>
+      </div>
+      <div class="ann">
+        <span class="ann-num">Zone 10 | Autor</span>
+        <h6>Person als Trust-Anker am Artikel-Ende</h6>
+        <p>Bestandskunden binden sich an Personen, nicht an Marken. Foto, Rolle, Institution, Schwerpunkt. Verlinkt zur Autorenseite.</p>
+        <div class="src">Edelman 2024; E-E-A-T Person-Schema</div>
+      </div>
+      <div class="ann">
+        <span class="ann-num">Sidebar</span>
+        <h6>Verwandte Artikel als Verweildauer-Treiber</h6>
+        <p>FYRRE-Style Karten mit Tags, Foto, Meta. Hält Sitzungslänge hoch, signalisiert Google thematische Tiefe.</p>
+        <div class="src">Goal-Gradient-Effekt</div>
+      </div>
+      <div class="ann">
+        <span class="ann-num">Print-Promo</span>
+        <h6>Magazin-Identität verstärkt</h6>
+        <p>Print-Banner unten suggeriert "echtes" Redaktionsprodukt. Zahlt auf Brand-Premium ein, optionaler Block.</p>
+        <div class="src">Brand-Editorial Strategie</div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ═════════ Section-Schema (Implementierungs-Spec) ═════════ -->
+  <section class="spec-section">
+    <h2>Section-Schema</h2>
+    <p class="lead">Was das Liquid-Block-Schema kennen muss, damit Redaktion das Template ohne Entwickler bedienen kann. Ein Artikel, drei CTA-Modi, gleiche visuelle Sprache.</p>
+
+    <div class="schema-grid">
+      <div class="schema-card">
+        <span class="key">Block-Setting</span>
+        <h4>cta_mode</h4>
+        <p>Select | newsletter (default) | product | off. Bestimmt, welcher Block in Zone 8 gerendert wird.</p>
+      </div>
+      <div class="schema-card">
+        <span class="key">Block-Setting</span>
+        <h4>show_print_promo</h4>
+        <p>Boolean. Zeigt Print-Magazin-Banner am Artikel-Ende, default false.</p>
+      </div>
+      <div class="schema-card">
+        <span class="key">Block-Setting</span>
+        <h4>show_news_ticker</h4>
+        <p>Boolean plus Rich-Text. Globaler Ticker, redaktionell befüllbar.</p>
+      </div>
+      <div class="schema-card">
+        <span class="key">Block-Setting</span>
+        <h4>brand_headline</h4>
+        <p>Text. Massive Display-Headline ganz oben (z.B. "Pflege &amp; Wissen"). Default je Magazin-Sektion.</p>
+      </div>
+      <div class="schema-card">
+        <span class="key">Block-Setting</span>
+        <h4>category_tag</h4>
+        <p>Metaobject Reference auf Artikel-Kategorie. Pill mit Outline.</p>
+      </div>
+      <div class="schema-card">
+        <span class="key">Block-Setting</span>
+        <h4>linked_product</h4>
+        <p>Product Reference. Wird nur im cta_mode = product gerendert. Optional, sonst Newsletter-Fallback.</p>
+      </div>
+      <div class="schema-card">
+        <span class="key">Block-Setting</span>
+        <h4>tldr</h4>
+        <p>Rich-Text. 40 bis 80 Wörter. Hartes Limit zur Sicherung der AEO-Qualität.</p>
+      </div>
+      <div class="schema-card">
+        <span class="key">Block-Setting</span>
+        <h4>faq</h4>
+        <p>Repeater (Frage, Antwort). 3 bis 7 Items. Generiert FAQPage-Schema.</p>
+      </div>
+      <div class="schema-card">
+        <span class="key">Auto</span>
+        <h4>reading_time</h4>
+        <p>Aus Wortanzahl berechnet, in Editorial-Meta angezeigt.</p>
+      </div>
+      <div class="schema-card">
+        <span class="key">Auto</span>
+        <h4>related_articles</h4>
+        <p>Drei Artikel mit gleichem oder verwandtem Tag. Sidebar-Karten.</p>
+      </div>
+      <div class="schema-card">
+        <span class="key">Schema.org</span>
+        <h4>JSON-LD</h4>
+        <p>Article + Person (Autor mit sameAs) + FAQPage + BreadcrumbList. Auto generiert.</p>
+      </div>
+      <div class="schema-card">
+        <span class="key">PostHog</span>
+        <h4>Event-Layer</h4>
+        <p>scroll_25/50/75/100, cta_view, cta_click pro mode, faq_open, related_click.</p>
+      </div>
+    </div>
+  </section>
+
+  <p class="concept-foot">Zahnheld Magazin | Blog-Artikel-Konzept v2 | 30.04.2026 | Editorial-Inspiration: FYRRE Magazine</p>
+
+</div>
+
+<script>
+  // CTA-Mode Toggle (nur Demo, im Liquid-Template wird per Setting gerendert)
+  document.querySelectorAll('.cta-modes-switch button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.mode;
+      document.querySelectorAll('.cta-modes-switch button').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.cta-mode').forEach(m => m.classList.toggle('active', m.dataset.mode === mode));
+    });
+  });
+</script>
+
+<!-- ═══════════════ Preview Toggle (versteckt alle Konzept-Hinweise) ═══════════════ -->
+<style>
+  .preview-toggle {
+    position: fixed;
+    bottom: 18px; left: 18px;
+    z-index: 100;
+    background: #1d1e20; color: #fff;
+    border: 0;
+    padding: 10px 16px 10px 14px;
+    border-radius: 9999px;
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0,0,0,.22);
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: transform .15s ease, box-shadow .2s ease;
+  }
+  .preview-toggle:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(0,0,0,.28); }
+  .preview-toggle:focus-visible { outline: 2px solid #ff6037; outline-offset: 2px; }
+  @media print { .preview-toggle { display: none; } }
+
+  body.preview-on .concept-banner,
+  body.preview-on .annotations,
+  body.preview-on .zone-tag,
+  body.preview-on .spec-section,
+  body.preview-on .concept-foot,
+  body.preview-on .variant-next { display: none !important; }
+  body.preview-on .layout { grid-template-columns: 1fr !important; }
+  body.preview-on .concept-wrap { padding-top: 16px; }
+
+  .variant-next {
+    position: fixed;
+    bottom: 18px; right: 18px;
+    z-index: 100;
+    background: #1d1e20; color: #fff;
+    padding: 10px 14px 10px 16px;
+    border-radius: 9999px;
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(0,0,0,.22);
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: transform .15s ease, box-shadow .2s ease;
+  }
+  .variant-next:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(0,0,0,.28); }
+  .variant-next svg { flex-shrink: 0; }
+  @media (max-width: 560px) {
+    .variant-next { right: auto; left: 18px; bottom: 64px; }
+  }
+</style>
+
+<button id="zh-preview-toggle" class="preview-toggle" type="button" aria-pressed="false">
+  <svg class="ico-on" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+  <svg class="ico-off" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M3 3l18 18"/><path d="M10.6 6.1A10.7 10.7 0 0 1 12 6c6.5 0 10 6 10 6a13 13 0 0 1-2.4 3"/><path d="M6.6 6.6A13 13 0 0 0 2 12s3.5 6 10 6c1.4 0 2.7-.3 3.8-.7"/></svg>
+  <span class="ico-lbl">Hinweise ausblenden</span>
+</button>
+
+<a class="variant-next" href="blog-artikel-konzept-reader.html">
+  <span>Konzept B · Reader</span>
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+</a>
+
+<script>
+  (function() {
+    const KEY = 'zh-preview-mode';
+    const btn = document.getElementById('zh-preview-toggle');
+    const lbl = btn.querySelector('.ico-lbl');
+    const iOn = btn.querySelector('.ico-on');
+    const iOff = btn.querySelector('.ico-off');
+    const apply = (on, persist) => {
+      document.body.classList.toggle('preview-on', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      lbl.textContent = on ? 'Hinweise einblenden' : 'Hinweise ausblenden';
+      iOn.style.display = on ? 'none' : '';
+      iOff.style.display = on ? '' : 'none';
+      if (persist) localStorage.setItem(KEY, on ? '1' : '0');
+    };
+    btn.addEventListener('click', () => {
+      apply(!document.body.classList.contains('preview-on'), true);
+    });
+    apply(localStorage.getItem(KEY) === '1', false);
+  })();
+</script>
+
+</body>
+</html>

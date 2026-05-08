@@ -1,0 +1,1812 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sonic konfigurieren — Zahnheld</title>
+<meta name="description" content="Konfiguriere deine Sonic Schallzahnbürste — Set, Bürstenkopf, Farbe, Abo.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://use.typekit.net/xyr4qon.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Archivo+Black&display=swap" rel="stylesheet">
+
+<style>
+  @font-face{
+    font-family:'Owners';
+    src: url('assets/fonts/Owners-Black.woff2') format('woff2'),
+         url('assets/fonts/Owners-Black.woff') format('woff');
+    font-weight: 900; font-style: normal; font-display: swap;
+  }
+
+  :root{
+    /* ── Palette (Brand Book §3) ─────────────────────────────── */
+    --c-white:        #FFFFFF;
+    --c-black:        #000000;
+    --c-anthrazit:    #4A4A4A;
+    --c-mint:         #B5DDC0;
+    --c-warm-sand:    #E8D2B0;
+    --c-sand-light:   #F5ECDC;
+    --c-mauve:        #B894A8;
+    --c-success:      #1F6B3A;
+
+    --fg-1:           var(--c-black);
+    --fg-2:           var(--c-anthrazit);
+    --fg-3:           #8A8A8A;
+    --bg-page:        var(--c-white);
+    --bg-card:        #FAFAF7;
+    --bg-soft:        #F4F2EC;
+    --hairline:       var(--c-anthrazit);
+    --hairline-dark:  rgba(255,255,255,0.22);
+
+    /* Type */
+    --font-display:   'articulat-cf', system-ui, sans-serif;
+    --font-heavy:     'Owners', 'Archivo Black', system-ui, sans-serif;
+    --font-body:      'Inter', system-ui, sans-serif;
+
+    --s-xs: 8px;  --s-sm: 16px;  --s-md: 24px; --s-lg: 40px;
+    --s-xl: 64px; --s-2xl: 96px;
+    --radius-pill: 999px;
+    --container:   1440px;
+    --gutter:      32px;
+
+    --bar-h: 84px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg-page);
+    color:var(--fg-1);
+    font-family:var(--font-body);
+    font-weight:400; font-size:16px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    overflow-x:hidden;
+    padding-bottom:0;
+  }
+  img{display:block;max-width:100%;height:auto}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit}
+  ::selection{background:var(--c-black); color:#fff}
+
+  .wrap{ max-width:var(--container); margin:0 auto; padding:0 var(--gutter) }
+  @media (max-width:720px){ :root{ --gutter:20px } }
+
+  /* ─── Type primitives ─────────────────────────────────── */
+  .eyebrow{
+    font-family:var(--font-body);
+    font-size:11px; font-weight:500;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:var(--fg-1); line-height:1.2;
+  }
+  .eyebrow--muted{ color:var(--fg-2) }
+  .display-md{
+    font-family:var(--font-display); font-weight:700;
+    font-size: clamp(36px, 4.4vw, 56px);
+    line-height:1.05; letter-spacing:-.01em;
+  }
+  .h1{ font-family:var(--font-display); font-weight:700;
+    font-size: clamp(32px, 3.2vw, 40px);
+    line-height:1.1; letter-spacing:-.005em;
+  }
+  .h2{ font-family:var(--font-display); font-weight:700;
+    font-size: clamp(26px, 2.6vw, 32px); line-height:1.1;
+  }
+  .h3{ font-family:var(--font-display); font-weight:500;
+    font-size:22px; line-height:1.15;
+  }
+  .body-lg{ font-size:18px; line-height:1.55; color:var(--fg-2) }
+  .body-sm{ font-size:14px; line-height:1.55; color:var(--fg-2) }
+  .caption{ font-size:12px; font-weight:500; letter-spacing:.05em;
+    text-transform:uppercase; color:var(--fg-2);
+  }
+
+  /* ─── Pill / Badge ─────────────────────────────── */
+  .pill{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 16px;
+    font-family:var(--font-body);
+    font-size:11px; font-weight:600;
+    letter-spacing:.05em; text-transform:uppercase;
+    border-radius:var(--radius-pill);
+    background:var(--c-white); color:var(--c-black);
+    line-height:1; white-space:nowrap;
+  }
+  .pill--outline{ background:transparent; color:var(--c-black); border:1px solid var(--c-black); }
+  .pill--mint{ background:var(--c-mint); color:var(--c-black) }
+  .pill--sand{ background:var(--c-warm-sand); color:var(--c-black) }
+  .pill--dark{ background:var(--c-black); color:#fff }
+
+  /* ─── Buttons ─────────────────────────────── */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    height:52px; padding:0 32px;
+    font-family:var(--font-body); font-size:14px; font-weight:600;
+    letter-spacing:.02em;
+    border-radius:var(--radius-pill);
+    transition: background .18s ease, color .18s ease, border-color .18s ease;
+    white-space:nowrap;
+  }
+  .btn--primary{ background:var(--c-black); color:#fff }
+  .btn--primary:hover{ background:#1A1A1A }
+  .btn--secondary{ background:transparent; color:var(--c-black); border:1px solid var(--c-black); }
+  .btn--secondary:hover{ background:var(--c-black); color:#fff }
+  .btn--inverse{ background:#fff; color:var(--c-black) }
+  .btn .arr{ transition:transform .2s ease }
+  .btn:hover .arr{ transform:translateX(3px) }
+
+  /* ─── Announcement Bar ─────────────────────── */
+  .announce{
+    background:var(--c-black); color:#fff;
+    font-size:12px; font-weight:500;
+    letter-spacing:.08em; text-transform:uppercase;
+    text-align:center;
+    padding:10px 24px; line-height:1.4;
+  }
+  .announce__inner{ display:inline-flex; align-items:center; gap:10px }
+  .announce .sep{ opacity:.5 }
+
+  /* ─── Header / Nav ─────────────────────── */
+  .nav{
+    background:var(--c-white);
+    border-bottom:1px solid var(--c-black);
+    position:sticky; top:0; z-index:50;
+  }
+  .nav__inner{
+    max-width:var(--container); margin:0 auto;
+    padding:0 var(--gutter);
+    display:grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items:center;
+    height:64px; gap:24px;
+  }
+  .nav__logo{ display:inline-flex; align-items:center; height:24px }
+  .nav__logo-img{ height:22px; width:auto; display:block }
+  .nav__back{
+    display:none; align-items:center; gap:8px;
+    font-family:var(--font-body); font-size:12px; font-weight:600;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:var(--c-black);
+  }
+  .nav__back:hover{ opacity:.6 }
+  .nav__right{
+    display:flex; align-items:center; gap:18px;
+    justify-content:flex-end;
+    font-family:var(--font-body); font-size:12px; font-weight:600;
+    letter-spacing:.08em; text-transform:uppercase;
+  }
+  .nav__cart{ display:inline-flex; align-items:center; gap:8px; position:relative; }
+  .nav__cart .num{
+    font-size:11px; padding:2px 6px;
+    border:1px solid var(--c-black);
+    border-radius:var(--radius-pill); line-height:1;
+  }
+  @media (min-width:980px){ .nav__back{ display:inline-flex } }
+  @media (max-width:720px){
+    .nav__inner{ grid-template-columns: auto 1fr; height:56px }
+    .nav__back{ display:none }
+  }
+
+  /* ─── Intro ─────────────────────── */
+  .intro{
+    border-bottom:1px solid var(--c-black);
+    padding: 80px 0 56px;
+  }
+  .intro__inner{
+    display:grid; grid-template-columns: 1fr 1fr;
+    gap: 48px; align-items:end;
+  }
+  .intro__left{ display:flex; flex-direction:column; gap:24px }
+  .intro__badges{
+    display:inline-flex; align-items:center; gap:10px; flex-wrap:wrap;
+    font-family:var(--font-body); font-size:11px; font-weight:600;
+    letter-spacing:.10em; text-transform:uppercase; color:var(--fg-2);
+  }
+  .intro__badges .sep{
+    width:3px; height:3px; border-radius:50%;
+    background:var(--fg-2); display:inline-block;
+  }
+  .intro__lead{
+    font-size:16px; line-height:1.55; color:var(--fg-2);
+    max-width:42ch;
+  }
+  .intro__right{
+    display:flex; flex-direction:column; justify-content:flex-end;
+    gap:6px; height:100%;
+    text-align:right;
+  }
+  .intro__price{
+    font-family:var(--font-display); font-weight:600;
+    font-size: 15px;
+    line-height:1.3; letter-spacing:0;
+    color:var(--c-black);
+  }
+  .intro__price-meta{
+    font-family:var(--font-body); font-size:11px; font-weight:500;
+    letter-spacing:.06em; text-transform:uppercase;
+    color:var(--fg-2);
+  }
+  .intro__klarna{
+    font-family:var(--font-body); font-size:12px; color:var(--fg-2);
+    margin-top:4px;
+  }
+  @media (max-width:900px){
+    .intro__right{ text-align:left; align-items:flex-start }
+  }
+  .intro__num{
+    font-family:var(--font-body); font-size:11px; font-weight:500;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:var(--fg-2);
+    display:block; margin-bottom:18px;
+  }
+  .intro h1{
+    font-family:var(--font-display); font-weight:700;
+    font-size: clamp(44px, 6vw, 72px);
+    line-height:1.0; letter-spacing:-.01em;
+    text-wrap:balance;
+  }
+  .intro h1 .alt{ color:var(--fg-2); font-weight:500; display:block }
+  .intro p{
+    font-size:18px; line-height:1.55; color:var(--fg-2);
+    max-width:42ch;
+  }
+  @media (max-width:900px){
+    .intro{ padding: 56px 0 40px }
+    .intro__inner{ grid-template-columns:1fr; gap:24px; align-items:start }
+    .intro h1{ font-size: clamp(36px, 8vw, 56px) }
+    .intro p{ font-size:15px }
+  }
+
+  /* ─── Progress (numbered, hairline) ─────────────────────── */
+  .progress{
+    position:sticky; top:64px; z-index:40;
+    background:var(--c-white);
+    border-bottom:1px solid var(--c-black);
+  }
+  .progress__inner{
+    max-width:var(--container); margin:0 auto;
+    padding: 0 var(--gutter);
+    display:flex; align-items:stretch;
+    overflow-x:auto; scrollbar-width:none;
+  }
+  .progress__inner::-webkit-scrollbar{display:none}
+  .pstep{
+    display:flex; align-items:center; gap:10px;
+    flex:1; min-width:140px;
+    padding: 18px 16px;
+    font-family:var(--font-body);
+    font-size:11px; font-weight:600;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:var(--fg-3);
+    cursor:pointer; transition: color .15s ease, background .15s ease;
+    border-right:1px solid var(--c-black);
+    white-space:nowrap;
+  }
+  .pstep:last-child{ border-right:0 }
+  .pstep:hover{ color:var(--fg-1) }
+  .pstep .num{
+    font-family:var(--font-body); font-weight:600;
+    font-size:11px;
+    width:22px; height:22px;
+    border:1px solid currentColor;
+    border-radius:50%;
+    display:inline-flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .pstep.current{ color:var(--c-black); background:#F4F2EC }
+  .pstep.current .num{ background:var(--c-black); color:#fff; border-color:var(--c-black) }
+  .pstep.done{ color:var(--c-black) }
+  .pstep.done .num{ background:var(--c-black); color:#fff; border-color:var(--c-black) }
+  .pstep.done .num span{ display:none }
+  .pstep.done .num::after{ content:"✓"; font-size:11px; font-weight:700 }
+  @media (max-width:720px){
+    .progress__inner{ padding:0 }
+    .pstep{ min-width:120px; padding:14px 14px; font-size:10px }
+  }
+  @media (max-width:560px){
+    .pstep .lab{ display:none }
+    .pstep{ min-width:0; padding:14px 12px; flex:0 0 auto }
+  }
+
+  /* ─── Configurator layout ─────────────────────── */
+  .steps-wrap{
+    max-width:var(--container); margin:0 auto;
+    padding: 0 var(--gutter) var(--bar-h);
+  }
+  .configurator{
+    display:grid;
+    grid-template-columns: 1fr;
+    border-left:1px solid var(--c-black);
+    border-right:1px solid var(--c-black);
+    border-bottom:1px solid var(--c-black);
+  }
+  @media (min-width: 980px){
+    .configurator{ grid-template-columns: 1.05fr 1fr; }
+  }
+
+  /* Sticky media column */
+  .config__media{
+    position:relative;
+    background:#0a0a0a;
+    aspect-ratio: 4/3;
+    overflow:hidden;
+    border-bottom:1px solid var(--c-black);
+  }
+  @media (min-width: 980px){
+    .config__media{
+      position:sticky; top:64px;
+      aspect-ratio: auto;
+      height: calc(100vh - 64px);
+      max-height: 820px;
+      align-self:start;
+      border-right:1px solid var(--c-black);
+      border-bottom:0;
+    }
+  }
+  .config__media .layer{
+    position:absolute; inset:0;
+    display:block;
+    transition: opacity .45s cubic-bezier(.22,.61,.36,1), transform .55s cubic-bezier(.22,.61,.36,1);
+    pointer-events:none;
+    padding: 0;
+  }
+  .config__media .layer img{
+    width: 100%; height: 100%; object-fit: cover;
+    transition: filter .4s ease;
+  }
+  .config__media .layer.hidden{ opacity:0; transform: scale(.96) translateY(8px); }
+  .config__media[data-color="black"] .tintable{ filter:none; }
+  .config__media[data-color="bone"]  .tintable{ filter: hue-rotate(20deg) brightness(1.85) saturate(.45) contrast(.95); }
+  .config__media[data-color="sand"]  .tintable{ filter: hue-rotate(15deg) brightness(1.55) saturate(.85) sepia(.35); }
+
+  /* Top index marker on media */
+  .config__index{
+    position:absolute; top:0; left:0; right:0;
+    display:flex; justify-content:space-between; align-items:center;
+    padding: 18px 22px;
+    font-family:var(--font-body); font-size:11px; font-weight:600;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:var(--fg-2);
+    border-bottom:1px solid var(--c-black);
+    background:rgba(255,255,255,.6);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    z-index:2;
+  }
+  .config__index .r{ color:var(--c-black) }
+
+  /* Color/Set badge bottom-left */
+  .config__badge{
+    position:absolute; left:22px; bottom:22px;
+    display:inline-flex; align-items:center; gap:10px;
+    background:#fff;
+    border:1px solid var(--c-black);
+    padding:8px 14px 8px 8px;
+    border-radius:var(--radius-pill);
+    font-family:var(--font-body); font-size:12px; font-weight:500;
+    color:var(--c-black);
+    z-index:2;
+  }
+  .config__badge .dot{
+    width:18px; height:18px; border-radius:50%;
+    border:1px solid rgba(0,0,0,.18);
+  }
+  .config__badge .dot[data-c="black"]{ background:#0a0a0a }
+  .config__badge .dot[data-c="bone"]{  background:#e8e1d3 }
+  .config__badge .dot[data-c="sand"]{  background:#c8b89a }
+  .config__badge .sep{ color:var(--fg-3); margin:0 2px }
+
+  /* Abo ribbon top-right */
+  .config__ribbon{
+    position:absolute; right:22px; top:60px;
+    background:var(--c-black); color:#fff;
+    font-family:var(--font-body);
+    font-size:11px; letter-spacing:.10em; text-transform:uppercase;
+    padding:8px 14px;
+    border-radius:var(--radius-pill);
+    font-weight:600;
+    opacity:0; transform: translateY(-6px) scale(.96);
+    transition: opacity .35s ease, transform .35s ease;
+    z-index:2;
+  }
+  .config__media.is-abo .config__ribbon{ opacity:1; transform:translateY(0) scale(1) }
+
+  /* Right column: scrollable step stack */
+  .config__steps{ display:flex; flex-direction:column }
+
+  .step{
+    padding: 40px 32px;
+    border-bottom:1px solid var(--c-black);
+    scroll-margin-top:130px;
+  }
+  .step:last-child{ border-bottom:0 }
+  @media (max-width:720px){ .step{ padding: 32px 20px } }
+
+  .step__head{ margin-bottom:28px }
+  .step__num{
+    font-family:var(--font-body); font-size:11px; font-weight:500;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:var(--fg-2);
+    margin-bottom:12px;
+  }
+  .step__num em{ font-style:normal; color:var(--c-black); font-weight:600 }
+  .step__title{
+    font-family:var(--font-display); font-weight:700;
+    font-size: clamp(28px, 3.4vw, 40px);
+    line-height:1.05; letter-spacing:-.01em;
+    text-wrap:balance;
+  }
+  .step__sub{
+    margin-top:14px;
+    font-size:15px; line-height:1.55; color:var(--fg-2);
+    max-width:46ch;
+  }
+
+  /* ─── Option cards (squared, 1px black) ─────────────────────── */
+  .opts{ display:flex; flex-direction:column; gap:0;
+    border:1px solid var(--c-black);
+  }
+  .opt-card{
+    display:grid;
+    grid-template-columns: 24px 1fr auto;
+    gap:18px;
+    align-items:start;
+    padding:22px 22px;
+    cursor:pointer;
+    text-align:left;
+    background:#fff;
+    border-bottom:1px solid var(--c-black);
+    transition: background .15s ease;
+    position:relative;
+  }
+  .opt-card:last-child{ border-bottom:0 }
+  .opt-card:hover{ background:#FAFAFA }
+  .opt-card.on{ background:#FAFAF7 }
+  .opt-card__radio{
+    width:20px; height:20px; border-radius:50%;
+    border:1.5px solid var(--c-black);
+    margin-top:2px; flex-shrink:0;
+    display:grid; place-items:center;
+    background:#fff;
+  }
+  .opt-card.on .opt-card__radio::after{
+    content:""; width:10px; height:10px; background:var(--c-black); border-radius:50%;
+  }
+  .opt-card__body{ min-width:0 }
+  .opt-card__name{
+    font-family:var(--font-display); font-weight:700;
+    font-size:18px; letter-spacing:-.005em;
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    color:var(--c-black);
+  }
+  .opt-card__name .badge{
+    font-family:var(--font-body);
+    font-size:10px; padding:3px 9px;
+    background:var(--c-black); color:#fff;
+    border-radius:var(--radius-pill);
+    font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+  }
+  .opt-card__name .badge--mint{ background:var(--c-mint); color:var(--c-black) }
+  .opt-card__sub{
+    font-family:var(--font-body);
+    font-size:13px; line-height:1.55; color:var(--fg-2);
+    margin-top:4px;
+  }
+  .opt-card__features{
+    margin-top:12px;
+    display:flex; flex-direction:column; gap:4px;
+  }
+  .opt-card__features span{
+    font-size:12px; color:var(--fg-2);
+    display:flex; gap:8px; align-items:center;
+  }
+  .opt-card__features span::before{
+    content:""; width:14px; height:1px; background:var(--c-anthrazit); flex-shrink:0;
+  }
+  .abo-freq{
+    margin-top:18px;
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .abo-freq__lab{
+    font-family:var(--font-body); font-size:10px; font-weight:600;
+    letter-spacing:.10em; text-transform:uppercase; color:var(--fg-2);
+  }
+  .abo-freq__select{
+    position:relative;
+    display:inline-flex; align-items:center;
+    border:1px solid var(--c-black);
+    border-radius:var(--radius-pill);
+    background:#fff;
+    overflow:hidden;
+    width:fit-content; max-width:100%;
+  }
+  .abo-freq__select select{
+    appearance:none; -webkit-appearance:none; -moz-appearance:none;
+    background:transparent; border:none; outline:none;
+    font-family:var(--font-body); font-size:13px; font-weight:500;
+    color:var(--c-black);
+    padding:10px 36px 10px 14px;
+    cursor:pointer;
+  }
+  .abo-freq__caret{
+    position:absolute; right:14px; top:50%; transform:translateY(-50%);
+    pointer-events:none; color:var(--c-black);
+  }
+  .opt-card__price{ text-align:right; flex-shrink:0; min-width:96px }
+  .opt-card__price .now{
+    font-family:var(--font-display); font-weight:700;
+    font-size:18px; letter-spacing:-.005em; color:var(--c-black);
+    white-space:nowrap;
+  }
+  .opt-card__price .was{
+    font-family:var(--font-body);
+    font-size:12px; color:var(--fg-3);
+    text-decoration:line-through; margin-top:4px;
+  }
+  .opt-card__price .pm{
+    font-family:var(--font-body);
+    font-size:11px; color:var(--fg-2); margin-top:6px;
+    letter-spacing:.04em;
+  }
+
+  /* ─── Chips (head, color) — square grid ─────────────────── */
+  .chips{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    border:1px solid var(--c-black);
+  }
+  @media (max-width:560px){ .chips{ grid-template-columns: 1fr } }
+  .chip{
+    border-right:1px solid var(--c-black);
+    padding:22px;
+    cursor:pointer; text-align:left; background:#fff;
+    transition: background .15s ease;
+    display:flex; flex-direction:column; gap:14px;
+    min-height:160px;
+  }
+  .chip__top{
+    display:flex; flex-direction:column; align-items:flex-start;
+    gap:10px; width:100%;
+  }
+  .chip__top-row{
+    display:flex; align-items:flex-start; justify-content:space-between;
+    gap:12px; width:100%;
+  }
+  .chip:last-child{ border-right:0 }
+  .chip:hover{ background:#FAFAFA }
+  .chip.on{ background:#FAFAF7 }
+  .chip__icon{
+    flex-shrink:0;
+    width:40px; height:40px;
+    border:1px solid var(--c-black); border-radius:50%;
+    display:grid; place-items:center;
+    color:var(--c-black);
+    background:#fff;
+  }
+  .chip.on .chip__icon{ background:var(--c-black); color:#fff }
+  .chip__icon svg{ width:24px; height:24px; stroke-width:1.6 }
+  .chip__body{ flex:1; min-width:0 }
+  .chip__body .chip__name{
+    font-family:var(--font-display); font-weight:700;
+    font-size:16px; letter-spacing:-.005em; color:var(--c-black);
+  }
+  .chip__body .chip__sub{
+    font-size:12px; color:var(--fg-2); margin-top:4px; line-height:1.5;
+  }
+  .chip__price{
+    flex-shrink:0;
+    text-align:left;
+    display:flex; flex-direction:row; gap:6px; align-items:baseline;
+    margin-top:8px;
+  }
+  .chip__price .amt{
+    font-family:var(--font-display); font-weight:700;
+    font-size:18px; color:var(--c-black); line-height:1;
+  }
+  .chip__price .from,
+  .chip__price .meta{
+    font-family:var(--font-body); font-size:11px; font-weight:500;
+    letter-spacing:0; text-transform:none; color:var(--fg-2);
+  }
+  .chip__pack{
+    margin-top:0;
+    display:flex; align-items:center; gap:6px;
+    flex-wrap:nowrap;
+    font-family:var(--font-body); font-size:12px; color:var(--fg-2);
+    white-space:nowrap;
+  }
+  .chip__pack-lab{
+    font-family:var(--font-body); font-size:12px; font-weight:500;
+    letter-spacing:0; text-transform:none; color:var(--fg-2);
+  }
+  .chip__pack-current{
+    font-family:var(--font-body); font-size:12px; font-weight:600;
+    color:var(--c-black);
+  }
+  .chip__pack-edit{
+    background:transparent; border:none;
+    font-family:var(--font-body); font-size:12px; font-weight:500;
+    color:var(--fg-2);
+    cursor:pointer; padding:2px 6px;
+    display:inline-flex; align-items:center; gap:4px;
+    text-decoration:underline; text-underline-offset:3px;
+    text-decoration-color:var(--hairline);
+  }
+  .chip__pack-edit:hover{ color:var(--c-black); text-decoration-color:var(--c-black) }
+  .chip__pack-edit svg{ width:11px; height:11px }
+  .chip__pack-opts{
+    display:none;
+    border:1px solid var(--c-black);
+    border-radius:var(--radius-pill);
+    overflow:hidden;
+  }
+  .chip__pack.editing .chip__pack-current,
+  .chip__pack.editing .chip__pack-edit,
+  .chip__pack.editing .chip__pack-lab{ display:none }
+  .chip__pack.editing .chip__pack-opts{ display:inline-flex }
+  .chip__pack-opt{
+    background:transparent; border:none;
+    font-family:var(--font-body); font-size:11px; font-weight:500;
+    color:var(--fg-2);
+    padding:5px 10px;
+    cursor:pointer; transition: all .15s ease;
+    border-right:1px solid var(--hairline);
+  }
+  .chip__pack-opt:last-child{ border-right:0 }
+  .chip__pack-opt:hover{ color:var(--c-black) }
+  .chip__pack-opt.on{
+    background:var(--c-black); color:#fff;
+  }
+  @media (max-width:560px){
+    .chip{ border-right:0; border-bottom:1px solid var(--c-black); min-height:0 }
+    .chip:last-child{ border-bottom:0 }
+  }
+
+  /* Color chips */
+  .colors{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    border:1px solid var(--c-black);
+  }
+  @media (max-width:560px){ .colors{ grid-template-columns:1fr } }
+  .color-chip{
+    border-right:1px solid var(--c-black);
+    padding:22px;
+    cursor:pointer; background:#fff;
+    transition: background .15s ease;
+    display:flex; align-items:center; gap:14px;
+    text-align:left;
+  }
+  .color-chip:last-child{ border-right:0 }
+  .color-chip:hover{ background:#FAFAFA }
+  .color-chip.on{ background:#FAFAF7 }
+  .color-swatch{
+    width:40px; height:40px; border-radius:50%; flex-shrink:0;
+    border:1px solid var(--c-black);
+  }
+  .color-swatch[data-c="black"]{ background:#0a0a0a }
+  .color-swatch[data-c="bone"]{  background:#e8e3d8 }
+  .color-swatch[data-c="sand"]{  background:#c8b89a }
+  .color-chip__txt{ min-width:0 }
+  .color-chip__name{
+    font-family:var(--font-display); font-weight:700;
+    font-size:16px; color:var(--c-black);
+  }
+  .color-chip__sub{ font-size:12px; color:var(--fg-2); margin-top:2px }
+  @media (max-width:560px){
+    .color-chip{ border-right:0; border-bottom:1px solid var(--c-black) }
+    .color-chip:last-child{ border-bottom:0 }
+  }
+
+  /* ─── Quantity row ─────────────────── */
+  .qty-row{
+    display:flex; gap:16px; align-items:center;
+    padding:18px 22px;
+    border:1px solid var(--c-black);
+    background:#fff;
+  }
+  .qty-row .lab{
+    font-family:var(--font-body); font-size:11px; font-weight:600;
+    letter-spacing:.10em; text-transform:uppercase; color:var(--fg-2);
+    margin-right:auto;
+  }
+  .qty{
+    display:flex; align-items:center;
+    border:1px solid var(--c-black);
+    border-radius:var(--radius-pill);
+    overflow:hidden; flex-shrink:0;
+  }
+  .qty button{
+    width:42px; height:42px;
+    font-size:16px;
+    color:var(--c-black); background:#fff;
+    transition:background .15s ease;
+  }
+  .qty button:hover{ background:var(--bg-card) }
+  .qty .n{
+    width:36px; text-align:center;
+    font-family:var(--font-display); font-weight:700;
+    font-size:15px;
+    border-left:1px solid var(--c-black);
+    border-right:1px solid var(--c-black);
+    line-height:42px;
+  }
+
+  /* ─── Trust row ─────────────────── */
+  .ship-row{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    border:1px solid var(--c-black);
+    margin-top:24px;
+  }
+  @media (min-width:720px){ .ship-row{ grid-template-columns: repeat(4, 1fr) } }
+  .ship-card{
+    padding:20px 22px;
+    border-right:1px solid var(--c-black);
+    border-bottom:1px solid var(--c-black);
+    display:flex; flex-direction:column; gap:10px;
+    background:#fff;
+  }
+  @media (min-width:720px){ .ship-card{ border-bottom:0 } }
+  .ship-card:last-child{ border-right:0 }
+  @media (max-width:720px){
+    .ship-card:nth-child(2){ border-right:0 }
+    .ship-card:nth-child(3),
+    .ship-card:nth-child(4){ border-bottom:0 }
+  }
+  .ship-card .ic{
+    width:32px; height:32px;
+    border:1px solid var(--c-black); border-radius:50%;
+    display:grid; place-items:center;
+    color:var(--c-black);
+  }
+  .ship-card b{
+    font-family:var(--font-display); font-weight:700;
+    font-size:14px; color:var(--c-black);
+  }
+  .ship-card span{ font-size:12px; color:var(--fg-2); line-height:1.5 }
+
+  /* ─── Summary section (full width) ─────────────────── */
+  .summary-sec{
+    border-top:1px solid var(--c-black);
+    background:#fff;
+    padding: 96px 0;
+  }
+  .summary-sec .sec-head{
+    display:grid; grid-template-columns: 1fr auto;
+    gap:48px; align-items:end;
+    padding-bottom: 40px;
+    border-bottom:1px solid var(--c-black);
+    margin-bottom: 40px;
+  }
+  .summary-sec .sec-head .num{
+    font-family:var(--font-body); font-size:11px; font-weight:500;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:var(--fg-2);
+    display:block; margin-bottom:12px;
+  }
+  @media (max-width:900px){
+    .summary-sec{ padding: 64px 0 }
+    .summary-sec .sec-head{ grid-template-columns:1fr; gap:18px }
+  }
+
+  .summary-grid{
+    display:grid; grid-template-columns: 1.2fr 1fr; gap:0;
+    border:1px solid var(--c-black);
+  }
+  @media (max-width:900px){ .summary-grid{ grid-template-columns:1fr } }
+
+  .summary__left{
+    padding: 32px;
+    border-right:1px solid var(--c-black);
+    display:flex; flex-direction:column; gap:24px;
+  }
+  @media (max-width:900px){ .summary__left{ border-right:0; border-bottom:1px solid var(--c-black) } }
+  .summary__product{
+    display:flex; gap:20px; align-items:center;
+    padding-bottom:24px;
+    border-bottom:1px solid var(--c-anthrazit);
+  }
+  .summary__img{
+    width:96px; height:96px;
+    border:1px solid var(--c-black);
+    background:#F4F2EC;
+    display:grid; place-items:center;
+    flex-shrink:0;
+    padding:8px;
+  }
+  .summary__img img{ max-width:100%; max-height:100%; object-fit:contain }
+  .summary__product b{
+    display:block;
+    font-family:var(--font-display); font-weight:700;
+    font-size:20px; letter-spacing:-.005em; color:var(--c-black);
+  }
+  .summary__product span{
+    display:block; margin-top:4px;
+    font-size:13px; color:var(--fg-2);
+  }
+  .summary__lines{ display:flex; flex-direction:column; gap:0 }
+  .summary__line{
+    display:flex; justify-content:space-between; gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid rgba(74,74,74,.18);
+    font-family:var(--font-body); font-size:14px;
+  }
+  .summary__line:last-child{ border-bottom:0 }
+  .summary__line span{
+    font-family:var(--font-body); font-size:11px; font-weight:500;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:var(--fg-2);
+  }
+  .summary__line b{
+    font-family:var(--font-display); font-weight:700;
+    font-size:14px; color:var(--c-black); text-align:right;
+    letter-spacing:-.005em;
+  }
+  .summary__save b{ color:var(--c-success) }
+
+  .summary__right{
+    padding: 32px;
+    background:#0A0A0A;
+    color:#fff;
+    display:flex; flex-direction:column; justify-content:space-between;
+    gap:24px;
+  }
+  .summary__total-block{ display:flex; flex-direction:column; gap:6px }
+  .summary__total-label{
+    font-family:var(--font-body); font-size:11px; font-weight:500;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:rgba(255,255,255,.6);
+  }
+  .summary__total-amt{
+    font-family:var(--font-display); font-weight:700;
+    font-size: clamp(40px, 5vw, 56px);
+    line-height:1; letter-spacing:-.01em;
+    color:#fff;
+  }
+  .summary__total-pay{
+    font-family:var(--font-body); font-size:12px; color:rgba(255,255,255,.6);
+    margin-top:6px;
+  }
+  .summary__btn{
+    width:100%; height:60px;
+    background:#fff; color:var(--c-black);
+    border-radius:var(--radius-pill);
+    font-family:var(--font-body); font-size:14px; font-weight:600;
+    letter-spacing:.04em; text-transform:uppercase;
+    display:flex; align-items:center; justify-content:center; gap:12px;
+    transition: background .18s ease;
+  }
+  .summary__btn:hover{ background:#EEEEEE }
+  .summary__btn .arr{ transition: transform .2s ease }
+  .summary__btn:hover .arr{ transform:translateX(3px) }
+  .summary__btn.added{ background:var(--c-success) }
+
+  .summary__trust{
+    display:grid; grid-template-columns: 1fr 1fr; gap:10px 18px;
+    font-family:var(--font-body); font-size:11px; color:rgba(255,255,255,.7);
+    letter-spacing:.04em;
+    padding-top:24px;
+    border-top:1px solid rgba(255,255,255,.18);
+  }
+  .summary__trust div{ display:flex; gap:8px; align-items:center }
+  .summary__trust div::before{
+    content:""; width:14px; height:14px; flex-shrink:0; border-radius:50%;
+    background:#fff;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'><path d='M4 8l2.5 2.5L12 5' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-size:contain;
+  }
+
+  /* ─── Mobile bar ─────────────────── */
+  .mobile-bar{
+    position:fixed; left:0; right:0; bottom:0; z-index:55;
+    background:var(--c-white);
+    border-top:1px solid var(--c-black);
+    padding:14px 20px;
+    padding-bottom: max(14px, env(safe-area-inset-bottom));
+    transition: transform .3s ease;
+  }
+  @media (min-width: 1100px){ .mobile-bar{ display:none } }
+  .mobile-bar__row{ display:flex; align-items:center; gap:14px }
+  .mobile-bar__l{ flex:1; min-width:0 }
+  .mobile-bar__l b{
+    font-family:var(--font-display); font-weight:700;
+    font-size:14px; color:var(--c-black);
+    display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .mobile-bar__l span{
+    font-size:11px; color:var(--fg-2);
+    letter-spacing:.04em;
+    display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .mobile-bar__price{
+    font-family:var(--font-display); font-weight:700;
+    font-size:18px; color:var(--c-black);
+    white-space:nowrap;
+  }
+  .mobile-bar__btn{
+    height:46px; padding:0 22px;
+    border-radius:var(--radius-pill);
+    background:var(--c-black); color:#fff;
+    font-family:var(--font-body); font-size:12px; font-weight:600;
+    letter-spacing:.06em; text-transform:uppercase;
+    flex-shrink:0;
+  }
+  .mobile-bar__btn.added{ background:var(--c-success) }
+
+  /* ─── Toast ─────────────────── */
+  .toast{
+    position:fixed; bottom: calc(var(--bar-h) + 16px); left:20px; right:20px; z-index:80;
+    background:var(--c-black); color:#fff;
+    padding:14px 18px;
+    border-radius:var(--radius-pill);
+    font-family:var(--font-body); font-size:12px; font-weight:600;
+    letter-spacing:.06em; text-transform:uppercase;
+    display:inline-flex; align-items:center; gap:10px;
+    transform:translateY(20px); opacity:0;
+    transition: all .3s ease; pointer-events:none;
+  }
+  @media (min-width:720px){
+    .toast{ left:auto; right:32px; bottom:32px; max-width:340px }
+  }
+  .toast.on{ transform:translateY(0); opacity:1 }
+  .toast::before{
+    content:""; width:18px; height:18px; border-radius:50%;
+    background:var(--c-success);
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'><path d='M4 8l2.5 2.5L12 5' stroke='white' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-size:contain;
+    flex-shrink:0;
+  }
+
+  /* ─── Footer (matches Landing) ─────────────────── */
+  footer{
+    background:var(--c-black); color:#fff;
+    padding: 80px 0 32px;
+  }
+  footer .top{
+    display:grid; grid-template-columns: 1.2fr 1fr;
+    gap:64px; align-items:center;
+    padding-bottom:64px;
+    border-bottom:1px solid var(--hairline-dark);
+  }
+  .foot__wordmark{ width:100%; max-width:520px; height:auto; display:block }
+  .foot__signup{ display:flex; flex-direction:column; gap:18px }
+  .foot__signup label{
+    font-size:11px; font-weight:500; letter-spacing:.10em;
+    text-transform:uppercase; color:rgba(255,255,255,.55);
+  }
+  .foot__row{
+    display:flex; gap:0;
+    border-bottom:1px solid rgba(255,255,255,.4);
+  }
+  .foot__row input{
+    flex:1; height:48px;
+    background:transparent; color:#fff; border:none;
+    font-family:var(--font-body); font-size:14px;
+  }
+  .foot__row input::placeholder{ color:rgba(255,255,255,.45) }
+  .foot__row input:focus{ outline:none }
+  .foot__row button{
+    color:#fff;
+    font-family:var(--font-body); font-size:11px; font-weight:600;
+    letter-spacing:.10em; text-transform:uppercase;
+    padding:0 8px;
+  }
+  footer .grid{
+    display:grid; grid-template-columns: repeat(4, 1fr);
+    gap: 48px;
+    padding: 56px 0;
+    border-bottom:1px solid var(--hairline-dark);
+  }
+  footer h6{
+    font-family:var(--font-body);
+    font-size:11px; font-weight:600;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:#fff; margin-bottom:18px;
+  }
+  footer ul{ list-style:none; display:flex; flex-direction:column; gap:10px }
+  footer ul a{ font-size:14px; color:rgba(255,255,255,.7); font-weight:400 }
+  footer ul a:hover{ color:#fff }
+  footer .bot{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:32px; flex-wrap:wrap; gap:18px;
+    color:rgba(255,255,255,.55); font-size:12px;
+  }
+  footer .bot .links{ display:flex; gap:24px; flex-wrap:wrap }
+  footer .bot a{ color:rgba(255,255,255,.55) }
+  footer .bot a:hover{ color:#fff }
+  @media (max-width:900px){
+    footer .top{ grid-template-columns:1fr; gap:32px }
+    footer .grid{ grid-template-columns: 1fr 1fr }
+  }
+  @media (max-width:560px){ footer .grid{ grid-template-columns:1fr } }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="announce" role="region" aria-label="Hinweis">
+  <span class="announce__inner">
+    <span>Versand in 24 Stunden</span>
+    <span class="sep">·</span>
+    <span>30 Tage Probeputzen</span>
+    <span class="sep">·</span>
+    <span>Klimaneutral</span>
+  </span>
+</div>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Hauptnavigation">
+  <div class="nav__inner">
+    <a href="Landing.html" class="nav__logo" aria-label="Zahnheld Startseite">
+      <img src="assets/zahnheld-wordmark-black.png" alt="Zahnheld" class="nav__logo-img">
+    </a>
+    <a href="Landing.html" class="nav__back" style="opacity: 0">← Zurück zur Übersicht</a>
+    <div class="nav__right">
+      <a href="#" class="nav__cart" aria-label="Warenkorb">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 7h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 7z"></path>
+          <path d="M9 7V5a3 3 0 0 1 6 0v2"></path>
+        </svg>
+        <span class="num" id="navCount">2</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- INTRO -->
+<header class="intro">
+  <div class="wrap intro__inner">
+    <div class="intro__left">
+      <div class="intro__badges">
+        <span>Neu</span>
+        <span class="sep" aria-hidden="true"></span>
+        <span>Bestseller</span>
+      </div>
+      <h1>GERO kaufen.</h1>
+    </div>
+    <div class="intro__right">
+      <span class="intro__price">ab 89,00 €</span>
+      <span class="intro__price-meta">inkl. MwSt. · zzgl. Versand</span>
+      <span class="intro__klarna">oder ab 3× 29,67 € mit Klarna</span>
+    </div>
+  </div>
+</header>
+
+<!-- PROGRESS removed -->
+<div class="progress" id="progress" style="display:none">
+  <div class="progress__inner">
+    <div class="pstep" data-step="1"></div>
+    <div class="pstep" data-step="2"></div>
+    <div class="pstep" data-step="3"></div>
+    <div class="pstep" data-step="4"></div>
+    <div class="pstep" data-step="5"></div>
+  </div>
+</div>
+
+<!-- STEPS -->
+<main class="steps-wrap">
+  <div class="configurator">
+
+    <!-- STICKY MEDIA -->
+    <div class="config__media" id="configMedia" data-color="black">
+      <div class="config__index" style="opacity: 0">
+        <span>Zahnheld® · Power</span>
+        <span class="r" id="mediaSet">Sonic — Travel</span>
+      </div>
+      <div class="layer hidden" data-set="Starter"><img class="tintable" src="images/brush-hero.png" alt=""></div>
+      <div class="layer" data-set="Travel"><img class="tintable" src="images/brush-with-case.png" alt=""></div>
+      <div class="layer hidden" data-set="Duo"><img class="tintable" src="images/brush-case-open.png" alt=""></div>
+      <div class="config__ribbon" id="configRibbon">Abo aktiv · −10%</div>
+      <div class="config__badge" id="configBadge">
+        <span class="dot" data-c="black" id="badgeDot"></span>
+        <b id="badgeColor">Schwarz</b>
+        <span class="sep">·</span>
+        <span id="badgeSet">Travel</span>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="config__steps">
+
+      <!-- STEP 1 -->
+      <section class="step" id="step-1">
+        <header class="step__head">
+          <div class="step__num">01 — SET</div>
+          <h2 class="step__title">Welches Set passt zu dir?</h2>
+          <p class="step__sub">Drei Sets — vom Einstieg bis zum Doppelpack für Paare. Bürstenköpfe kannst du jederzeit nachbestellen.</p>
+        </header>
+        <div class="opts" id="variants">
+          <div class="opt-card" role="button" tabindex="0" data-price="89.90" data-was="119.90" data-name="Sonic Starter" data-img="images/brush-hero.png" data-label="Starter">
+            <div class="opt-card__radio"></div>
+            <div class="opt-card__body">
+              <div class="opt-card__name">Starter</div>
+              <div class="opt-card__sub">Für Einsteiger:innen.</div>
+              <div class="opt-card__features">
+                <span>1× Sonic Schallzahnbürste</span>
+                <span>1× Bürstenkopf</span>
+                <span>1× Magnet-Ladestation</span>
+              </div>
+            </div>
+            <div class="opt-card__price">
+              <div class="now">89,90 €</div>
+              <div class="was">119,90 €</div>
+              <div class="pm">oder 3× 29,97 €</div>
+            </div>
+          </div>
+          <div class="opt-card on" role="button" tabindex="0" data-price="119.90" data-was="159.90" data-name="Sonic Travel Set" data-img="images/brush-with-case.png" data-label="Travel">
+            <div class="opt-card__radio"></div>
+            <div class="opt-card__body">
+              <div class="opt-card__name">Travel <span class="badge badge--mint">Beliebt</span></div>
+              <div class="opt-card__sub">Drei Köpfe + Reise-Etui aus pflanzlich gegerbtem Leder.</div>
+              <div class="opt-card__features">
+                <span>1× Sonic Schallzahnbürste</span>
+                <span>3× Bürstenkopf (Pro X-Clean, Medium, Soft)</span>
+                <span>1× Reise-Etui</span>
+                <span>1× Magnet-Ladestation</span>
+              </div>
+            </div>
+            <div class="opt-card__price">
+              <div class="now">119,90 €</div>
+              <div class="was">159,90 €</div>
+              <div class="pm">oder 3× 39,97 €</div>
+            </div>
+          </div>
+          <div class="opt-card" role="button" tabindex="0" data-price="219.90" data-was="299.90" data-name="Sonic Duo" data-img="images/brush-case-open.png" data-label="Duo">
+            <div class="opt-card__radio"></div>
+            <div class="opt-card__body">
+              <div class="opt-card__name">Duo</div>
+              <div class="opt-card__sub">Doppelpack für Paare oder als Geschenk.</div>
+              <div class="opt-card__features">
+                <span>2× Sonic Schallzahnbürste</span>
+                <span>6× Bürstenkopf</span>
+                <span>2× Reise-Etui</span>
+                <span>2× Magnet-Ladestation</span>
+              </div>
+            </div>
+            <div class="opt-card__price">
+              <div class="now">219,90 €</div>
+              <div class="was">299,90 €</div>
+              <div class="pm">oder 3× 73,30 €</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 2 -->
+      <section class="step" id="step-2">
+        <header class="step__head">
+          <div class="step__num">02 — BÜRSTENKOPF</div>
+          <h2 class="step__title">Welcher Bürstenkopf?</h2>
+          <p class="step__sub">Drei Härtegrade, alle Köpfe passen auf den gleichen Körper. Wechsel den Kopf alle 12 Wochen — wir erinnern dich.</p>
+        </header>
+        <div class="chips" id="heads">
+          <div class="chip on" role="button" tabindex="0" data-name="Pro X-Clean" data-base="18.95">
+              <div class="chip__top">
+                <div class="chip__top-row">
+                  <div class="chip__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="7"></circle><circle cx="12" cy="12" r="3.2" fill="currentColor"></circle></svg>
+            </div>
+                  <div class="chip__body">
+                    <div class="chip__name">Pro X-Clean</div>
+                    <div class="chip__sub">Intensiv · Am besten</div>
+                    <div class="chip__price" data-price-host>
+                      <span class="from">ab</span>
+                      <span class="amt" data-amt>5,68 €</span>
+                      <span class="meta">pro Stück</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="chip__pack" data-pack-host>
+                <span class="chip__pack-lab">Anzahl:</span>
+                <span class="chip__pack-current" data-pack-current>3 Stück</span>
+                <span class="chip__pack-edit" role="button" tabindex="0" data-pack-edit aria-label="Anzahl bearbeiten">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.5 2.5l2 2L5 13l-3 .5.5-3z"/></svg>
+                  bearbeiten
+                </span>
+                <div class="chip__pack-opts" role="radiogroup" aria-label="Packungsgröße">
+                  <span class="chip__pack-opt on" role="radio" tabindex="0" aria-checked="true" data-pack="3">3 Stück</span>
+                  <span class="chip__pack-opt" role="radio" tabindex="0" aria-checked="false" data-pack="6">6 Stück</span>
+                  <span class="chip__pack-opt" role="radio" tabindex="0" aria-checked="false" data-pack="9">9 Stück</span>
+                </div>
+              </div>
+            </div>
+          <div class="chip" role="button" tabindex="0" data-name="Basic Medium" data-base="14.95">
+              <div class="chip__top">
+                <div class="chip__top-row">
+                  <div class="chip__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="7"></circle></svg>
+            </div>
+                  <div class="chip__body">
+                    <div class="chip__name">Basic Medium</div>
+                    <div class="chip__sub">Täglich · Ausgewogen</div>
+                    <div class="chip__price" data-price-host>
+                      <span class="from">ab</span>
+                      <span class="amt" data-amt>4,48 €</span>
+                      <span class="meta">pro Stück</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="chip__pack" data-pack-host>
+                <span class="chip__pack-lab">Anzahl:</span>
+                <span class="chip__pack-current" data-pack-current>3 Stück</span>
+                <span class="chip__pack-edit" role="button" tabindex="0" data-pack-edit aria-label="Anzahl bearbeiten">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.5 2.5l2 2L5 13l-3 .5.5-3z"/></svg>
+                  bearbeiten
+                </span>
+                <div class="chip__pack-opts" role="radiogroup" aria-label="Packungsgröße">
+                  <span class="chip__pack-opt on" role="radio" tabindex="0" aria-checked="true" data-pack="3">3 Stück</span>
+                  <span class="chip__pack-opt" role="radio" tabindex="0" aria-checked="false" data-pack="6">6 Stück</span>
+                  <span class="chip__pack-opt" role="radio" tabindex="0" aria-checked="false" data-pack="9">9 Stück</span>
+                </div>
+              </div>
+            </div>
+          <div class="chip" role="button" tabindex="0" data-name="Basic Soft" data-base="14.95">
+              <div class="chip__top">
+                <div class="chip__top-row">
+                  <div class="chip__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2 2"><circle cx="12" cy="12" r="7"></circle></svg>
+            </div>
+                  <div class="chip__body">
+                    <div class="chip__name">Basic Soft</div>
+                    <div class="chip__sub">Sensitiv · Schonend</div>
+                    <div class="chip__price" data-price-host>
+                      <span class="from">ab</span>
+                      <span class="amt" data-amt>4,48 €</span>
+                      <span class="meta">pro Stück</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="chip__pack" data-pack-host>
+                <span class="chip__pack-lab">Anzahl:</span>
+                <span class="chip__pack-current" data-pack-current>3 Stück</span>
+                <span class="chip__pack-edit" role="button" tabindex="0" data-pack-edit aria-label="Anzahl bearbeiten">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.5 2.5l2 2L5 13l-3 .5.5-3z"/></svg>
+                  bearbeiten
+                </span>
+                <div class="chip__pack-opts" role="radiogroup" aria-label="Packungsgröße">
+                  <span class="chip__pack-opt on" role="radio" tabindex="0" aria-checked="true" data-pack="3">3 Stück</span>
+                  <span class="chip__pack-opt" role="radio" tabindex="0" aria-checked="false" data-pack="6">6 Stück</span>
+                  <span class="chip__pack-opt" role="radio" tabindex="0" aria-checked="false" data-pack="9">9 Stück</span>
+                </div>
+              </div>
+            </div>
+        </div>
+      </section>
+
+      <!-- STEP 3 -->
+      <section class="step" id="step-3">
+        <header class="step__head">
+          <div class="step__num">03 — FARBE</div>
+          <h2 class="step__title">Welche Farbe?</h2>
+          <p class="step__sub">Eloxiertes Aluminium, drei matte Töne. Alle drei stehen unauffällig im Bad — versprochen.</p>
+        </header>
+        <div class="colors" id="colors">
+          <button class="color-chip on" data-c="black" data-name="Schwarz">
+            <span class="color-swatch" data-c="black"></span>
+            <span class="color-chip__txt">
+              <span class="color-chip__name">Schwarz</span>
+              <span class="color-chip__sub">Matt eloxiert</span>
+            </span>
+          </button>
+          <button class="color-chip" data-c="bone" data-name="Bone">
+            <span class="color-swatch" data-c="bone"></span>
+            <span class="color-chip__txt">
+              <span class="color-chip__name">Bone</span>
+              <span class="color-chip__sub">Warmer Off-Ton</span>
+            </span>
+          </button>
+          <button class="color-chip" data-c="sand" data-name="Sand">
+            <span class="color-swatch" data-c="sand"></span>
+            <span class="color-chip__txt">
+              <span class="color-chip__name">Sand</span>
+              <span class="color-chip__sub">Erdiges Beige</span>
+            </span>
+          </button>
+        </div>
+      </section>
+
+      <!-- STEP 4 -->
+      <section class="step" id="step-4">
+        <header class="step__head">
+          <div class="step__num">04 — ABO</div>
+          <h2 class="step__title">Bürstenköpfe im Abo?</h2>
+          <p class="step__sub">10% Rabatt auf alle Bürstenkopf-Lieferungen, klimaneutral versendet, jederzeit kündbar. Ohne Abo zahlst du regulär 14,95€ (Basic) bzw. 18,95€ (Pro X-Clean) pro 3er-Pack.</p>
+        </header>
+        <div class="opts" id="abo">
+          <div class="opt-card on" role="button" tabindex="0" data-abo="0" data-name="Ohne Abo">
+            <div class="opt-card__radio"></div>
+            <div class="opt-card__body">
+              <div class="opt-card__name">Ohne Abo</div>
+              <div class="opt-card__sub">3er-Packs einzeln nachkaufen, wann du willst.</div>
+              <div class="opt-card__features">
+                <span>Regulärer Preis</span>
+                <span>Keine Bindung</span>
+              </div>
+            </div>
+            <div class="opt-card__price">
+              <div class="now">+ 0 €</div>
+            </div>
+          </div>
+          <div class="opt-card" role="button" tabindex="0" data-abo="1" data-name="Mit Abo">
+            <div class="opt-card__radio"></div>
+            <div class="opt-card__body">
+              <div class="opt-card__name">Mit Abo <span class="badge">−10%</span></div>
+              <div class="opt-card__sub">Automatische Lieferung im gewählten Rhythmus, jederzeit pausierbar.</div>
+              <div class="opt-card__features">
+                <span>10% Rabatt auf jede Lieferung</span>
+                <span>Klimaneutraler Versand</span>
+                <span>Pause oder Stopp jederzeit</span>
+              </div>
+              <div class="abo-freq" id="aboFreq">
+                <label class="abo-freq__lab" for="aboFreqSel">Lieferung alle</label>
+                <div class="abo-freq__select">
+                  <select id="aboFreqSel" aria-label="Lieferhäufigkeit">
+                    <option value="3">3 Monate</option>
+                    <option value="6">6 Monate</option>
+                    <option value="9" selected>9 Monate — Empfohlen</option>
+                    <option value="12">12 Monate</option>
+                  </select>
+                  <svg class="abo-freq__caret" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="opt-card__price">
+              <div class="now">−10%</div>
+              <div class="pm">erste Lieferung in <span id="aboFreqLabel">9 Monaten</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /.config__steps -->
+  </div><!-- /.configurator -->
+</main>
+
+<!-- SUMMARY SECTION -->
+<section class="summary-sec" id="step-5">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="num">05 — Bestellen</span>
+        <h2 class="display-md">Fertig konfiguriert.</h2>
+      </div>
+      <div>
+        <p class="body-lg" style="max-width:38ch">Hier siehst du deine Sonic in der Übersicht. Wenn alles stimmt — eine Klick weiter.</p>
+      </div>
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary__left">
+        <div class="summary__product">
+          <div class="summary__img" style="padding: 0px"><img id="sumImg" src="images/brush-with-case.png" alt=""></div>
+          <div>
+            <b id="sumName">Sonic Travel Set</b>
+            <span id="sumMeta">Pro X-Clean · Schwarz</span>
+          </div>
+        </div>
+        <div class="summary__lines">
+          <div class="summary__line"><span>Set</span><b id="sumSet">Travel</b></div>
+          <div class="summary__line"><span>Bürstenkopf</span><b id="sumHead">Pro X-Clean</b></div>
+          <div class="summary__line"><span>Farbe</span><b id="sumColor">Schwarz</b></div>
+          <div class="summary__line"><span>Abo</span><b id="sumAbo">Nein</b></div>
+          <div class="summary__line"><span>Anzahl</span><b id="sumQty">1</b></div>
+          <div class="summary__line"><span>Zwischensumme</span><b id="sumSub">119,90 €</b></div>
+          <div class="summary__line summary__save"><span>Du sparst</span><b id="sumSave">−40,00 €</b></div>
+          <div class="summary__line"><span>Versand</span><b>Kostenlos</b></div>
+        </div>
+
+        <div class="qty-row">
+          <span class="lab">Anzahl</span>
+          <div class="qty">
+            <button id="qm" aria-label="Weniger">−</button>
+            <span class="n" id="qn">1</span>
+            <button id="qp" aria-label="Mehr">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary__right">
+        <div class="summary__total-block">
+          <span class="summary__total-label">Gesamt</span>
+          <span class="summary__total-amt" id="sumTotal">119,90 €</span>
+          <span class="summary__total-pay">oder 3× 39,97 € mit Klarna</span>
+        </div>
+        <button class="summary__btn" id="addBtn">
+          <span>In den Warenkorb · <span id="ctaPrice">119,90 €</span></span>
+          <span class="arr">→</span>
+        </button>
+        <div class="summary__trust">
+          <div>30 Tage Probeputzen</div>
+          <div>2 Jahre Garantie</div>
+          <div>24h Versand</div>
+          <div>Klimaneutral</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust row -->
+    <div class="ship-row">
+      <div class="ship-card">
+        <div class="ic">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="4.5" width="9" height="7"></rect><path d="M10.5 7h3l1.5 2v2.5h-4.5z"></path><circle cx="4.5" cy="12.5" r="1.5"></circle><circle cx="11.5" cy="12.5" r="1.5"></circle></svg>
+        </div>
+        <b>Versand in 24 h</b>
+        <span>DHL GoGreen, klimaneutral</span>
+      </div>
+      <div class="ship-card">
+        <div class="ic">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1.5l5.5 2.5v4c0 3-2.4 5.5-5.5 6.5C4.9 13.5 2.5 11 2.5 8V4z"></path><path d="M5.5 8.2L7.2 10 11 6"></path></svg>
+        </div>
+        <b>30 Tage Probeputzen</b>
+        <span>Kostenloser Rückversand</span>
+      </div>
+      <div class="ship-card">
+        <div class="ic">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"></circle><path d="M8 4v4l2.5 1.5"></path></svg>
+        </div>
+        <b>2 Jahre Garantie</b>
+        <span>Bei Defekten innerhalb von 24 Monaten</span>
+      </div>
+      <div class="ship-card">
+        <div class="ic">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h7l3 3v9H3z"></path><path d="M10 2v3h3"></path><path d="M5.5 9h5M5.5 11.5h3"></path></svg>
+        </div>
+        <b>Aus Köln</b>
+        <span>Made in Germany, FSC-Verpackung</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <div class="foot__mark">
+        <img src="assets/zahnheld-wordmark-white.png" alt="Zahnheld" class="foot__wordmark">
+      </div>
+      <div class="foot__signup">
+        <label for="footEmail">Newsletter — Edition Notes</label>
+        <div class="foot__row">
+          <input id="footEmail" type="email" placeholder="deine@email.com">
+          <button>Anmelden →</button>
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div>
+        <h6>Shop</h6>
+        <ul>
+          <li><a href="#">Power</a></li>
+          <li><a href="#">Care</a></li>
+          <li><a href="#">White</a></li>
+          <li><a href="#">Recovery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h6>Marke</h6>
+        <ul>
+          <li><a href="#">Über Zahnheld</a></li>
+          <li><a href="#">Manifest</a></li>
+          <li><a href="#">Nachhaltigkeit</a></li>
+          <li><a href="#">Karriere</a></li>
+        </ul>
+      </div>
+      <div>
+        <h6>Service</h6>
+        <ul>
+          <li><a href="#">Kontakt</a></li>
+          <li><a href="#">Versand</a></li>
+          <li><a href="#">Rückgabe</a></li>
+          <li><a href="#">Garantie</a></li>
+        </ul>
+      </div>
+      <div>
+        <h6>Konto</h6>
+        <ul>
+          <li><a href="#">Anmelden</a></li>
+          <li><a href="#">Bestellungen</a></li>
+          <li><a href="#">Abo verwalten</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bot">
+      <span>© 2026 Zahnheld GmbH · Köln</span>
+      <span class="links">
+        <a href="#">AGB</a>
+        <a href="#">Datenschutz</a>
+        <a href="#">Impressum</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- MOBILE BAR -->
+<div class="mobile-bar">
+  <div class="mobile-bar__row">
+    <div class="mobile-bar__l">
+      <b id="barName">Sonic Travel Set</b>
+      <span id="barMeta">Pro X-Clean · Schwarz</span>
+    </div>
+    <div class="mobile-bar__price" id="barPrice">119,90 €</div>
+    <button class="mobile-bar__btn" id="barBtn">Weiter →</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">In den Warenkorb gelegt</div>
+
+<script>
+  const fmt = (n) => n.toFixed(2).replace('.', ',') + ' €';
+
+  const state = {
+    set:   { price: 119.90, was: 159.90, name: 'Sonic Travel Set', label: 'Travel', img: 'images/brush-with-case.png' },
+    head:  'Pro X-Clean',
+    color: 'Schwarz',
+    abo:   false,
+    qty:   1,
+    cart:  2,
+    activeStep: 1,
+    completed: new Set()
+  };
+
+  function setActiveSet(label){
+    const media = document.getElementById('configMedia');
+    media.querySelectorAll('.layer').forEach(l => {
+      l.classList.toggle('hidden', l.dataset.set !== label);
+    });
+    document.getElementById('mediaSet').textContent = 'Sonic — ' + label;
+  }
+  function setColor(c){
+    const media = document.getElementById('configMedia');
+    media.dataset.color = c;
+    document.getElementById('badgeDot').dataset.c = c;
+  }
+  function setAbo(on){
+    document.getElementById('configMedia').classList.toggle('is-abo', !!on);
+  }
+  function updateBadge(){
+    document.getElementById('badgeColor').textContent = state.color;
+    document.getElementById('badgeSet').textContent = state.set.label;
+  }
+
+  // STEP 1
+  document.querySelectorAll('#variants .opt-card').forEach(v => {
+    v.addEventListener('click', () => {
+      document.querySelectorAll('#variants .opt-card').forEach(x => x.classList.remove('on'));
+      v.classList.add('on');
+      state.set.price = parseFloat(v.dataset.price);
+      state.set.was = parseFloat(v.dataset.was);
+      state.set.name = v.dataset.name;
+      state.set.label = v.dataset.label;
+      state.set.img = v.dataset.img;
+      setActiveSet(state.set.label);
+      updateBadge();
+      markComplete(1);
+      render();
+    });
+  });
+
+  // STEP 2
+  document.querySelectorAll('#heads .chip').forEach(h => {
+    h.addEventListener('click', (e) => {
+      if (e.target.closest('.chip__pack')) return;
+      document.querySelectorAll('#heads .chip').forEach(x => x.classList.remove('on'));
+      h.classList.add('on');
+      state.head = h.dataset.name;
+      markComplete(2);
+      render();
+    });
+  });
+
+  // Pack size (subtle, per-chip)
+  state.packs = { 'Pro X-Clean': 3, 'Basic Medium': 3, 'Basic Soft': 3 };
+  const packDiscount = { 3: 0, 6: 0.05, 9: 0.10 };
+  function recalcChipPrice(chip) {
+    const base = parseFloat(chip.dataset.base);
+    const name = chip.dataset.name;
+    const pack = state.packs[name] || 3;
+    const disc = packDiscount[pack] || 0;
+    const perPiece = (base * (1 - disc)) / 3; // base price is per 3-pack
+    const amt = chip.querySelector('[data-amt]');
+    if (amt) amt.textContent = perPiece.toFixed(2).replace('.', ',') + '\u00a0€';
+  }
+  document.querySelectorAll('#heads .chip').forEach(chip => {
+    recalcChipPrice(chip);
+    const packHost = chip.querySelector('[data-pack-host]');
+    const editBtn = chip.querySelector('[data-pack-edit]');
+    const currentEl = chip.querySelector('[data-pack-current]');
+    if (editBtn && packHost) {
+      editBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        packHost.classList.add('editing');
+      });
+    }
+    chip.querySelectorAll('.chip__pack-opt').forEach(b => {
+      b.addEventListener('click', (e) => {
+        e.stopPropagation();
+        chip.querySelectorAll('.chip__pack-opt').forEach(x => {
+          x.classList.remove('on');
+          x.setAttribute('aria-checked', 'false');
+        });
+        b.classList.add('on');
+        b.setAttribute('aria-checked', 'true');
+        const pack = parseInt(b.dataset.pack, 10);
+        state.packs[chip.dataset.name] = pack;
+        if (currentEl) currentEl.textContent = pack + ' Stück';
+        recalcChipPrice(chip);
+        if (packHost) packHost.classList.remove('editing');
+        // Auto-select chip if not already
+        if (!chip.classList.contains('on')) {
+          document.querySelectorAll('#heads .chip').forEach(x => x.classList.remove('on'));
+          chip.classList.add('on');
+          state.head = chip.dataset.name;
+          markComplete(2);
+          render();
+        }
+      });
+    });
+  });
+
+  // STEP 3
+  document.querySelectorAll('#colors .color-chip').forEach(c => {
+    c.addEventListener('click', () => {
+      document.querySelectorAll('#colors .color-chip').forEach(x => x.classList.remove('on'));
+      c.classList.add('on');
+      state.color = c.dataset.name;
+      setColor(c.dataset.c);
+      updateBadge();
+      markComplete(3);
+      render();
+    });
+  });
+
+  // STEP 4
+  document.querySelectorAll('#abo .opt-card').forEach(o => {
+    o.addEventListener('click', (e) => {
+      // Ignore clicks on the freq selector — handled separately
+      if (e.target.closest('.abo-freq')) return;
+      document.querySelectorAll('#abo .opt-card').forEach(x => x.classList.remove('on'));
+      o.classList.add('on');
+      state.abo = o.dataset.abo === '1';
+      setAbo(state.abo);
+      markComplete(4);
+      render();
+    });
+  });
+
+  // Abo Lieferhäufigkeit
+  state.aboFreq = 9;
+  const aboFreqSel = document.getElementById('aboFreqSel');
+  if (aboFreqSel) {
+    aboFreqSel.addEventListener('click', (e) => e.stopPropagation());
+    aboFreqSel.addEventListener('change', (e) => {
+      e.stopPropagation();
+      state.aboFreq = parseInt(aboFreqSel.value, 10);
+      const lab = document.getElementById('aboFreqLabel');
+      if (lab) lab.textContent = state.aboFreq + ' Monaten';
+      // Activate "Mit Abo" if not already
+      const mitAbo = document.querySelector('#abo .opt-card[data-abo="1"]');
+      if (mitAbo && !mitAbo.classList.contains('on')) {
+        document.querySelectorAll('#abo .opt-card').forEach(x => x.classList.remove('on'));
+        mitAbo.classList.add('on');
+        state.abo = true;
+        setAbo(true);
+        markComplete(4);
+        render();
+      }
+    });
+  }
+
+  // QTY
+  document.getElementById('qm').addEventListener('click', () => {
+    state.qty = Math.max(1, state.qty - 1);
+    document.getElementById('qn').textContent = state.qty;
+    render();
+  });
+  document.getElementById('qp').addEventListener('click', () => {
+    state.qty = Math.min(9, state.qty + 1);
+    document.getElementById('qn').textContent = state.qty;
+    render();
+  });
+
+  // ATC
+  const addBtn = document.getElementById('addBtn');
+  const barBtn = document.getElementById('barBtn');
+  const toast  = document.getElementById('toast');
+  function addToCart(){
+    state.cart += state.qty;
+    document.getElementById('navCount').textContent = state.cart;
+    addBtn.classList.add('added');
+    barBtn.classList.add('added');
+    addBtn.innerHTML = '<span>✓ Hinzugefügt</span>';
+    barBtn.innerHTML = '✓ Erledigt';
+    toast.classList.add('on');
+    setTimeout(() => {
+      addBtn.classList.remove('added');
+      barBtn.classList.remove('added');
+      toast.classList.remove('on');
+      render();
+    }, 1800);
+  }
+  addBtn.addEventListener('click', addToCart);
+  barBtn.addEventListener('click', () => {
+    if(state.activeStep >= 5){ addToCart(); return; }
+    const next = Math.min(5, state.activeStep + 1);
+    document.getElementById('step-'+next).scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  // PROGRESS NAV
+  document.querySelectorAll('#progress .pstep').forEach(p => {
+    p.addEventListener('click', () => {
+      const n = parseInt(p.dataset.step);
+      document.getElementById('step-'+n).scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  function markComplete(stepIdx){
+    state.completed.add(stepIdx);
+    updateProgress();
+  }
+
+  function updateProgress(){
+    document.querySelectorAll('#progress .pstep').forEach(p => {
+      const n = parseInt(p.dataset.step);
+      p.classList.toggle('done', state.completed.has(n) && state.activeStep > n);
+      p.classList.toggle('current', state.activeStep === n);
+    });
+  }
+
+  const stepEls = ['step-1','step-2','step-3','step-4','step-5'].map(id => document.getElementById(id));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        const idx = stepEls.indexOf(e.target);
+        if(idx >= 0){
+          state.activeStep = idx + 1;
+          updateProgress();
+          updateBarBtn();
+        }
+      }
+    });
+  }, {rootMargin: '-30% 0% -55% 0%'});
+  stepEls.forEach(el => el && io.observe(el));
+
+  function updateBarBtn(){
+    barBtn.textContent = state.activeStep >= 5 ? 'In den Warenkorb' : 'Weiter →';
+  }
+
+  function render(){
+    const subTotal = state.set.price * state.qty;
+    const wasTotal = state.set.was * state.qty;
+    const total = subTotal;
+    const savings = wasTotal - subTotal;
+
+    document.getElementById('sumImg').src = state.set.img;
+    document.getElementById('sumName').textContent = state.set.name;
+    document.getElementById('sumMeta').textContent = state.head + ' · ' + state.color + (state.abo ? ' · Abo' : '');
+    document.getElementById('sumSet').textContent = state.set.label;
+    document.getElementById('sumHead').textContent = state.head;
+    document.getElementById('sumColor').textContent = state.color;
+    document.getElementById('sumAbo').textContent = state.abo ? 'Ja, alle 12 Wochen' : 'Nein';
+    document.getElementById('sumQty').textContent = state.qty;
+    document.getElementById('sumSub').textContent = fmt(subTotal);
+    document.getElementById('sumSave').textContent = '−' + fmt(savings);
+    document.getElementById('sumTotal').textContent = fmt(total);
+    document.getElementById('ctaPrice').textContent = fmt(total);
+
+    document.getElementById('barName').textContent = state.set.name;
+    document.getElementById('barMeta').textContent = state.head + ' · ' + state.color + (state.abo ? ' · Abo' : '');
+    document.getElementById('barPrice').textContent = fmt(total);
+  }
+  render();
+  updateBarBtn();
+  setActiveSet(state.set.label);
+  updateBadge();
+</script>
+</body>
+</html>
