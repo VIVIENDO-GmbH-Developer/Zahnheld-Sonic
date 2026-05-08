@@ -999,7 +999,7 @@
   }
 </style>
 </head>
-<body style="">
+<body style="" data-page-key="landing">
 
   <!-- Announcement Bar (§7.2) -->
   <div class="announce" role="region" aria-label="Hinweis" style="opacity: 1; background-color: rgb(241, 241, 241); color: rgb(0, 0, 0)">
@@ -1631,8 +1631,10 @@
     <span class="zh-switcher__label">Seiten</span>
   </button>
   <ul id="zh-switcher-menu" class="zh-switcher__menu" role="menu">
-    <li role="none"><a role="menuitem" href="index.html"><span class="zh-switcher__num">01</span><span>Landing</span></a></li>
-    <li role="none"><a role="menuitem" href="product.html"><span class="zh-switcher__num">02</span><span>Produkt</span></a></li>
+    <li role="none"><a role="menuitem" href="index.html" data-key="landing"><span class="zh-switcher__num">01</span><span>Landing</span></a></li>
+    <li role="none"><a role="menuitem" href="product.html" data-key="product"><span class="zh-switcher__num">02</span><span>Produkt</span></a></li>
+    <li role="none"><a role="menuitem" href="kids/index.html" data-key="kids-landing"><span class="zh-switcher__num">03</span><span>Kids Landing</span></a></li>
+    <li role="none"><a role="menuitem" href="kids/product.html" data-key="kids-product"><span class="zh-switcher__num">04</span><span>Kids Produkt</span></a></li>
   </ul>
 </div>
 <style>
@@ -1694,11 +1696,11 @@
   if(!root) return;
   var toggle = root.querySelector('.zh-switcher__toggle');
   var menu   = root.querySelector('.zh-switcher__menu');
-  var here = (location.pathname.split('/').pop() || '').toLowerCase();
-  if(here === '' || here === '/') here = 'index.html';
+  var key = (document.body.getAttribute('data-page-key') || '').toLowerCase();
   menu.querySelectorAll('a').forEach(function(a){
-    var t = (a.getAttribute('href')||'').toLowerCase();
-    if(t === here) a.setAttribute('aria-current','page');
+    if((a.getAttribute('data-key')||'').toLowerCase() === key){
+      a.setAttribute('aria-current','page');
+    }
   });
   function setOpen(open){
     root.classList.toggle('is-open', open);

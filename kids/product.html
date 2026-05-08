@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ralph — Schallzahnbürste für Kinder · Ralph and Doug by Zahnheld</title>
+<meta name="description" content="Ralph Schallzahnbürste. Premium Kinder-Zahnpflege ab 3 Jahren. Sanft, leise, dermatologisch geprüft. Mit Buch und Stickerbogen.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --c-white:        #FFFFFF;
+    --c-black:        #000000;
+    --c-anthrazit:    #4A4A4A;
+
+    --c-rd-indigo:       #2C3FB5;
+    --c-rd-deep-indigo:  #1A2580;
+    --c-rd-lavendel:     #BDB9E8;
+    --c-rd-lavendel-soft:#D5D2E8;
+    --c-rd-creme:        #F5F1E8;
+
+    --fg-1:           var(--c-rd-deep-indigo);
+    --fg-2:           #4A4A4A;
+    --fg-3:           #8A8A8A;
+    --bg-page:        var(--c-rd-creme);
+    --bg-card:        var(--c-white);
+    --hairline:       var(--c-rd-deep-indigo);
+    --hairline-soft:  rgba(26,37,128,0.20);
+    --hairline-dark:  rgba(255,255,255,0.22);
+
+    --font-display:   'Caveat Brush', 'Caveat', cursive;
+    --font-body:      'Inter', system-ui, sans-serif;
+
+    --s-xs: 8px;  --s-sm: 16px;  --s-md: 24px; --s-lg: 40px;
+    --s-xl: 64px; --s-2xl: 96px;
+
+    --radius-pill: 999px;
+    --container:   1440px;
+    --gutter:      32px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background-color: var(--bg-page);
+    background-image: radial-gradient(ellipse 1.6px 1.3px at 30% 40%, rgba(26,37,128,0.16) 0%, transparent 65%), radial-gradient(ellipse 1.1px 1.5px at 70% 65%, rgba(26,37,128,0.10) 0%, transparent 70%);
+    background-size: 22px 22px, 17px 17px;
+    color:var(--fg-1);
+    font-family:var(--font-body);
+    font-weight:400; font-size:16px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    overflow-x:hidden;
+  }
+  img{display:block;max-width:100%;height:auto}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit}
+  ::selection{ background:var(--c-rd-indigo); color:#fff }
+
+  .wrap{ max-width:var(--container); margin:0 auto; padding:0 var(--gutter) }
+  @media (max-width:720px){ :root{ --gutter:20px } }
+
+  .eyebrow{
+    font-family:var(--font-body);
+    font-size:11px; font-weight:500;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:var(--fg-1); line-height:1.2;
+  }
+  .eyebrow--muted{ color:var(--fg-2) }
+  .display-md{
+    font-family:var(--font-display);
+    font-size: clamp(40px, 5vw, 64px);
+    line-height:1.0; color:var(--c-rd-deep-indigo);
+  }
+  .h1, h1{
+    font-family:var(--font-display);
+    font-size: clamp(56px, 7vw, 96px);
+    line-height:.95; color:var(--c-rd-deep-indigo);
+  }
+  .h2, h2{
+    font-family:var(--font-display);
+    font-size: clamp(32px, 3.4vw, 44px);
+    line-height:1.05; color:var(--c-rd-deep-indigo);
+  }
+  .h3, h3{
+    font-family:var(--font-display);
+    font-size: clamp(24px, 2.4vw, 32px);
+    line-height:1.1; color:var(--c-rd-deep-indigo);
+  }
+  .body-lg{ font-size:18px; line-height:1.55; color:var(--fg-2); font-family:var(--font-body); }
+  .body-sm{ font-size:14px; line-height:1.55; color:var(--fg-2); font-family:var(--font-body); }
+
+  /* ── Pill ───────────────────────────────────────────── */
+  .pill{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 16px;
+    font-family:var(--font-body);
+    font-size:11px; font-weight:600;
+    letter-spacing:.05em; text-transform:uppercase;
+    border-radius:var(--radius-pill);
+    background:var(--c-white); color:var(--c-rd-deep-indigo);
+    border:1px solid var(--c-rd-deep-indigo);
+    line-height:1; white-space:nowrap;
+  }
+  .pill--solid{ background:var(--c-rd-indigo); color:#fff; border-color:var(--c-rd-indigo) }
+  .pill--lavendel{ background:var(--c-rd-lavendel-soft); color:var(--c-rd-deep-indigo); border-color:transparent }
+
+  /* ── Buttons ────────────────────────────────────────── */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    height:52px; padding:0 32px;
+    font-family:var(--font-body); font-size:14px; font-weight:600;
+    letter-spacing:.02em;
+    border-radius:var(--radius-pill);
+    transition: background .18s ease, color .18s ease, border-color .18s ease;
+    white-space:nowrap;
+  }
+  .btn--primary{ background:var(--c-rd-indigo); color:#fff }
+  .btn--primary:hover{ background:var(--c-rd-deep-indigo) }
+  .btn--secondary{
+    background:transparent; color:var(--c-rd-deep-indigo);
+    border:1px solid var(--c-rd-deep-indigo);
+  }
+  .btn--secondary:hover{ background:var(--c-rd-deep-indigo); color:#fff }
+  .btn--block{ width:100%; height:60px; font-size:15px }
+  .btn .arr{ transition:transform .2s ease }
+  .btn:hover .arr{ transform:translateX(3px) }
+
+  /* ── Announcement Bar ───────────────────────────────── */
+  .announce{
+    background:#D5D2E8; color:var(--c-rd-deep-indigo);
+    font-size:12px; font-weight:500;
+    letter-spacing:.08em; text-transform:uppercase;
+    text-align:center;
+    padding:10px 24px; line-height:1.4;
+  }
+  .announce__inner{ display:inline-flex; align-items:center; gap:10px }
+
+  /* ── Header / Nav ───────────────────────────────────── */
+  .nav{
+    background:var(--c-rd-creme);
+    background-image: radial-gradient(ellipse 1.6px 1.3px at 30% 40%, rgba(26,37,128,0.16) 0%, transparent 65%), radial-gradient(ellipse 1.1px 1.5px at 70% 65%, rgba(26,37,128,0.10) 0%, transparent 70%);
+    background-size: 22px 22px, 17px 17px;
+    border-bottom:1px solid var(--hairline);
+    position:sticky; top:0; z-index:50;
+  }
+  .nav__inner{
+    display:grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items:center;
+    height:72px; gap:24px;
+  }
+  .nav__logo{
+    color:var(--c-rd-deep-indigo);
+    display:inline-flex; align-items:center; gap:8px;
+    height:32px;
+  }
+  .nav__logo-img{ height:30px; width:auto; display:block }
+  .nav__links{
+    display:flex; gap:24px; justify-content:center;
+    font-family:var(--font-body); font-size:12px; font-weight:600;
+    letter-spacing:.10em; text-transform:uppercase;
+  }
+  .nav__links a{ color:var(--c-rd-deep-indigo); transition: opacity .15s ease }
+  .nav__links a:hover{ opacity:.6 }
+  .nav__links a.active{ color:var(--c-rd-indigo) }
+  .nav__right{
+    display:flex; align-items:center; gap:18px; justify-content:flex-end;
+    font-family:var(--font-body); font-size:12px; font-weight:600;
+    letter-spacing:.08em; text-transform:uppercase;
+  }
+  .nav__right a{ color:var(--c-rd-deep-indigo) }
+  .nav__back{
+    font-size:11px; letter-spacing:.10em;
+    color:var(--c-rd-deep-indigo); opacity:.7;
+    padding-right:12px;
+    border-right:1px solid var(--hairline-soft);
+    transition: opacity .15s ease;
+  }
+  .nav__back:hover{ opacity:1 }
+  .nav__cart{
+    display:inline-flex; align-items:center; gap:6px; position:relative;
+  }
+  .nav__cart .num{
+    font-size:11px; padding:2px 6px;
+    border:1px solid var(--c-rd-deep-indigo);
+    border-radius:var(--radius-pill); line-height:1;
+  }
+  @media (max-width:980px){
+    .nav__inner{ grid-template-columns: auto 1fr; height:60px }
+    .nav__links{ display:none }
+    .nav__right .hide-md{ display:none }
+  }
+
+  /* ── PDP intro band ─────────────────────────────────── */
+  .pdp-intro{
+    background:transparent;
+    border-bottom:1px solid var(--hairline-soft);
+    padding: 32px 0 24px;
+  }
+  .pdp-intro__inner{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:32px;
+    flex-wrap:wrap;
+  }
+  .pdp-intro__crumbs{
+    font-family:var(--font-body);
+    font-size:11px; font-weight:500;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:var(--fg-2);
+  }
+  .pdp-intro__crumbs a{ color:var(--fg-2) }
+  .pdp-intro__badges{
+    display:flex; gap:10px; flex-wrap:wrap;
+  }
+
+  /* ── PDP gallery + buy box ──────────────────────────── */
+  .pdp{
+    padding: 56px 0 96px;
+  }
+  .pdp__grid{
+    display:grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 64px;
+    align-items:flex-start;
+  }
+  .pdp__gallery{
+    display:grid;
+    grid-template-columns: 80px 1fr;
+    gap:16px;
+    position:sticky; top:96px;
+  }
+  .pdp__thumbs{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .pdp__thumb{
+    aspect-ratio: 1/1;
+    background:var(--c-white);
+    border:1px solid var(--c-rd-deep-indigo);
+    overflow:hidden;
+    cursor:pointer;
+    transition: opacity .15s ease;
+    opacity:.6;
+  }
+  .pdp__thumb.active{ opacity:1 }
+  .pdp__thumb:hover{ opacity:1 }
+  .pdp__thumb img{ width:100%; height:100%; object-fit:cover }
+  .pdp__main{
+    aspect-ratio: 4/5;
+    background:var(--c-white);
+    border:1px solid var(--c-rd-deep-indigo);
+    overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .pdp__main img{
+    width:100%; height:100%; object-fit:cover;
+    transition: opacity .25s ease;
+  }
+  .pdp__main img.hidden{ display:none }
+  .pdp__media-tag{
+    position:absolute; top:16px; left:16px;
+    z-index:2;
+  }
+
+  .pdp__buy{
+    display:flex; flex-direction:column; gap:24px;
+    padding-top:8px;
+  }
+  .pdp__eyebrow{
+    font-family:var(--font-body);
+    font-size:11px; font-weight:500;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:var(--c-rd-indigo);
+  }
+  .pdp__title{
+    font-family:var(--font-display);
+    font-size: clamp(72px, 9vw, 128px);
+    line-height:.92;
+    color:var(--c-rd-deep-indigo);
+  }
+  .pdp__title .alt{ display:block; color:var(--c-rd-indigo); opacity:.7; font-size:.5em }
+  .pdp__lead{
+    font-family:var(--font-body);
+    font-size:17px; line-height:1.55;
+    color:var(--c-rd-deep-indigo);
+    max-width:46ch;
+  }
+  .pdp__rating{
+    display:flex; gap:10px; align-items:center;
+    font-family:var(--font-body);
+    font-size:13px; color:var(--fg-2);
+  }
+  .pdp__rating .stars{ color:var(--c-rd-indigo); letter-spacing:1px }
+  .pdp__price{
+    display:flex; align-items:baseline; gap:14px;
+    border-top:1px solid var(--hairline-soft);
+    border-bottom:1px solid var(--hairline-soft);
+    padding: 18px 0;
+  }
+  .pdp__price-now{
+    font-family:var(--font-display);
+    font-size:48px; line-height:1;
+    color:var(--c-rd-deep-indigo);
+  }
+  .pdp__price-meta{
+    font-family:var(--font-body);
+    font-size:12px; color:var(--fg-2);
+    letter-spacing:.05em;
+  }
+
+  .pdp__opt{ display:flex; flex-direction:column; gap:10px }
+  .pdp__opt-label{
+    font-family:var(--font-body);
+    font-size:11px; font-weight:600;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:var(--c-rd-deep-indigo);
+  }
+  .pdp__chips{ display:flex; gap:10px; flex-wrap:wrap }
+  .pdp__chip{
+    padding:10px 18px;
+    border:1px solid var(--c-rd-deep-indigo);
+    border-radius:var(--radius-pill);
+    background:var(--c-white);
+    font-family:var(--font-body); font-size:13px; font-weight:500;
+    color:var(--c-rd-deep-indigo);
+    cursor:pointer;
+    transition: background .15s ease, color .15s ease;
+  }
+  .pdp__chip.on{ background:var(--c-rd-deep-indigo); color:#fff }
+  .pdp__chip:hover:not(.on){ background:var(--c-rd-lavendel-soft) }
+
+  .pdp__qty{
+    display:inline-flex; align-items:center;
+    border:1px solid var(--c-rd-deep-indigo);
+    border-radius:var(--radius-pill);
+    overflow:hidden;
+  }
+  .pdp__qty button{
+    width:44px; height:44px;
+    color:var(--c-rd-deep-indigo);
+    font-size:18px; font-weight:600;
+  }
+  .pdp__qty input{
+    width:48px; text-align:center;
+    border:none; background:transparent;
+    font-family:var(--font-body); font-size:14px; font-weight:600;
+    color:var(--c-rd-deep-indigo);
+  }
+  .pdp__qty input:focus{ outline:none }
+
+  .pdp__pills{
+    display:flex; gap:10px; flex-wrap:wrap;
+    padding-top:12px;
+    border-top:1px solid var(--hairline-soft);
+  }
+  .pdp__pill{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 14px;
+    border:1px solid var(--c-rd-deep-indigo);
+    border-radius:var(--radius-pill);
+    font-family:var(--font-body); font-size:11px; font-weight:600;
+    letter-spacing:.08em; text-transform:uppercase;
+    color:var(--c-rd-deep-indigo);
+  }
+
+  @media (max-width:900px){
+    .pdp__grid{ grid-template-columns:1fr; gap:32px }
+    .pdp__gallery{ position:static }
+  }
+  @media (max-width:560px){
+    .pdp__gallery{ grid-template-columns:1fr }
+    .pdp__thumbs{ flex-direction:row; order:2 }
+    .pdp__thumb{ width:64px }
+  }
+
+  /* ── Trust strip ────────────────────────────────────── */
+  .trust-strip{
+    background:var(--c-rd-deep-indigo); color:#fff;
+    padding: 28px 0;
+    border-top:1px solid var(--c-rd-deep-indigo);
+    border-bottom:1px solid var(--c-rd-deep-indigo);
+  }
+  .trust-strip__row{
+    display:flex; justify-content:space-between; align-items:center;
+    gap:32px; flex-wrap:wrap;
+  }
+  .trust-strip__item{
+    display:flex; flex-direction:column; gap:4px;
+  }
+  .trust-strip__big{
+    font-family:var(--font-display);
+    font-size:32px; line-height:1; color:#fff;
+  }
+  .trust-strip__small{
+    font-family:var(--font-body);
+    font-size:11px; font-weight:500;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:rgba(255,255,255,.7);
+  }
+
+  /* ── Section primitive ──────────────────────────────── */
+  section{ padding: var(--s-2xl) 0 }
+  @media (max-width:720px){ section{ padding: 56px 0 } }
+  .sec-head{
+    display:grid;
+    grid-template-columns: auto 1fr auto;
+    align-items:end;
+    gap:48px;
+    padding-bottom: var(--s-lg);
+    border-bottom:1px solid var(--c-rd-deep-indigo);
+    margin-bottom: var(--s-lg);
+  }
+  .sec-head .left{ max-width:32ch }
+  .sec-head .right{ max-width:42ch; text-align:left; justify-self:start }
+  .sec-head .meta{ text-align:right }
+  .sec-head .num{
+    font-family:var(--font-body); font-size:11px; font-weight:500;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:var(--fg-2);
+    display:block; margin-bottom:14px;
+  }
+  @media (max-width:900px){
+    .sec-head{ grid-template-columns:1fr; gap:18px }
+    .sec-head .meta{ text-align:left }
+  }
+
+  /* ── How-it-works (3 frames, lavender paper) ────────── */
+  .hiw{
+    padding: var(--s-2xl) 0;
+  }
+  .hiw__grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top:1px solid var(--c-rd-deep-indigo);
+    border-bottom:1px solid var(--c-rd-deep-indigo);
+    background:var(--c-rd-lavendel-soft);
+    background-image: radial-gradient(ellipse 1.7px 1.4px at 30% 40%, rgba(26,37,128,0.30) 0%, transparent 65%), radial-gradient(ellipse 1.2px 1.6px at 70% 65%, rgba(26,37,128,0.20) 0%, transparent 70%);
+    background-size: 22px 22px, 17px 17px;
+  }
+  .hiw__frame{
+    aspect-ratio: 4/5;
+    border-right:1px solid var(--c-rd-deep-indigo);
+    padding:32px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    gap:24px;
+  }
+  .hiw__frame:last-child{ border-right:0 }
+  .hiw__num{
+    font-family:var(--font-body);
+    font-size:11px; font-weight:600;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:var(--c-rd-indigo);
+  }
+  .hiw__caption{
+    font-family:var(--font-display);
+    font-size: clamp(56px, 6vw, 96px);
+    line-height:.95;
+    color:var(--c-rd-deep-indigo);
+  }
+  .hiw__sub{
+    font-family:var(--font-body);
+    font-size:14px; line-height:1.55;
+    color:var(--c-rd-deep-indigo);
+    max-width:30ch;
+  }
+  @media (max-width:900px){
+    .hiw__grid{ grid-template-columns:1fr }
+    .hiw__frame{ border-right:0; border-bottom:1px solid var(--c-rd-deep-indigo); aspect-ratio:auto }
+    .hiw__frame:last-child{ border-bottom:0 }
+  }
+
+  /* ── Specs table ────────────────────────────────────── */
+  .specs{ background:var(--c-white); padding: var(--s-2xl) 0 }
+  .specs__grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:64px;
+    border-top:1px solid var(--c-rd-deep-indigo);
+    border-bottom:1px solid var(--c-rd-deep-indigo);
+    padding: var(--s-lg) 0;
+  }
+  .specs__col h3{
+    font-family:var(--font-body);
+    font-size:11px; font-weight:600;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:var(--c-rd-indigo);
+    margin-bottom:18px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--hairline-soft);
+  }
+  .specs__row{
+    display:flex; justify-content:space-between; gap:24px;
+    padding: 14px 0;
+    border-bottom:1px solid var(--hairline-soft);
+    font-family:var(--font-body); font-size:14px;
+  }
+  .specs__row:last-child{ border-bottom:0 }
+  .specs__key{ color:var(--fg-2); font-weight:500 }
+  .specs__val{ color:var(--c-rd-deep-indigo); font-weight:600; text-align:right }
+  @media (max-width:720px){ .specs__grid{ grid-template-columns:1fr; gap:32px } }
+
+  /* ── Reviews ────────────────────────────────────────── */
+  .reviews{ padding: var(--s-2xl) 0 }
+  .reviews__grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    border:1px solid var(--c-rd-deep-indigo);
+    background:var(--c-white);
+  }
+  .review{
+    padding:28px;
+    border-right:1px solid var(--c-rd-deep-indigo);
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .review:last-child{ border-right:0 }
+  .review__stars{ color:var(--c-rd-indigo); font-size:14px; letter-spacing:1px }
+  .review__title{
+    font-family:var(--font-display);
+    font-size:24px; line-height:1.1;
+    color:var(--c-rd-deep-indigo);
+  }
+  .review__body{
+    font-family:var(--font-body); font-size:14px; line-height:1.55;
+    color:var(--fg-2);
+  }
+  .review__by{
+    font-family:var(--font-body); font-size:11px; font-weight:500;
+    letter-spacing:.08em; text-transform:uppercase;
+    color:var(--fg-2);
+  }
+  @media (max-width:900px){
+    .reviews__grid{ grid-template-columns:1fr }
+    .review{ border-right:0; border-bottom:1px solid var(--c-rd-deep-indigo) }
+    .review:last-child{ border-bottom:0 }
+  }
+
+  /* ── Cross-sell strip ───────────────────────────────── */
+  .cross{ padding: var(--s-2xl) 0 }
+  .cross__grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top:1px solid var(--c-rd-deep-indigo);
+    border-bottom:1px solid var(--c-rd-deep-indigo);
+    background:var(--c-white);
+  }
+  .cross-card{
+    padding:24px;
+    border-right:1px solid var(--c-rd-deep-indigo);
+    display:flex; flex-direction:column; gap:8px;
+    transition: background .2s ease;
+  }
+  .cross-card:last-child{ border-right:0 }
+  .cross-card:hover{ background:var(--c-rd-creme) }
+  .cross-card__media{
+    aspect-ratio: 1/1;
+    background:var(--c-rd-creme);
+    border:1px solid var(--c-rd-deep-indigo);
+    margin-bottom:8px; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .cross-card__media img{ width:90%; height:90%; object-fit:contain }
+  .cross-card__eyebrow{
+    font-family:var(--font-body); font-size:11px; font-weight:500;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:var(--c-rd-indigo);
+  }
+  .cross-card__title{
+    font-family:var(--font-display); font-size:32px; line-height:1.05;
+    color:var(--c-rd-deep-indigo);
+  }
+  .cross-card__price{
+    font-family:var(--font-body); font-size:16px; font-weight:700;
+    color:var(--c-rd-deep-indigo); margin-top:8px;
+  }
+  @media (max-width:900px){
+    .cross__grid{ grid-template-columns:1fr }
+    .cross-card{ border-right:0; border-bottom:1px solid var(--c-rd-deep-indigo) }
+    .cross-card:last-child{ border-bottom:0 }
+  }
+
+  /* ── FAQ ────────────────────────────────────────────── */
+  .faq{ padding: var(--s-2xl) 0; background:transparent }
+  .faq__list{
+    border-top:1px solid var(--c-rd-deep-indigo);
+  }
+  .faq__item{
+    border-bottom:1px solid var(--c-rd-deep-indigo);
+  }
+  .faq__q{
+    width:100%; text-align:left;
+    padding: 24px 0;
+    display:flex; justify-content:space-between; align-items:center;
+    gap:24px;
+    font-family:var(--font-display);
+    font-size: clamp(22px, 2.4vw, 32px);
+    line-height:1.1;
+    color:var(--c-rd-deep-indigo);
+  }
+  .faq__q::after{
+    content:"+";
+    font-family:var(--font-body); font-weight:300;
+    font-size:32px; color:var(--c-rd-indigo);
+    transition: transform .2s ease;
+    flex-shrink:0;
+  }
+  .faq__item.open .faq__q::after{ transform: rotate(45deg) }
+  .faq__a{
+    font-family:var(--font-body);
+    font-size:15px; line-height:1.6;
+    color:var(--fg-2);
+    max-width:60ch;
+    padding: 0 0 24px;
+    display:none;
+  }
+  .faq__item.open .faq__a{ display:block }
+
+  /* ── Footer (Zahnheld) ──────────────────────────────── */
+  footer{
+    background:var(--c-black); color:#fff;
+    padding: 80px 0 32px;
+  }
+  footer .top{
+    display:grid; grid-template-columns: 1.2fr 1fr;
+    gap: 64px; align-items:center;
+    padding-bottom:64px;
+    border-bottom:1px solid var(--hairline-dark);
+  }
+  .foot__wordmark{ width:100%; max-width:480px; height:auto; display:block }
+  .foot__signup{ display:flex; flex-direction:column; gap:18px }
+  .foot__signup label{
+    font-size:11px; font-weight:500; letter-spacing:.10em;
+    text-transform:uppercase; color:rgba(255,255,255,.55);
+  }
+  .foot__row{
+    display:flex; gap:0;
+    border-bottom:1px solid rgba(255,255,255,.4);
+  }
+  .foot__row input{
+    flex:1; height:48px;
+    background:transparent; color:#fff; border:none;
+    font-family:var(--font-body); font-size:14px;
+  }
+  .foot__row input::placeholder{ color:rgba(255,255,255,.45) }
+  .foot__row input:focus{ outline:none }
+  .foot__row button{
+    color:#fff;
+    font-family:var(--font-body); font-size:11px; font-weight:600;
+    letter-spacing:.10em; text-transform:uppercase;
+    padding:0 8px;
+  }
+  footer .grid{
+    display:grid; grid-template-columns: repeat(5, 1fr);
+    gap: 40px;
+    padding: 56px 0;
+    border-bottom:1px solid var(--hairline-dark);
+  }
+  footer h6{
+    font-family:var(--font-body);
+    font-size:11px; font-weight:600;
+    letter-spacing:.10em; text-transform:uppercase;
+    color:#fff; margin-bottom:18px;
+  }
+  footer ul{ list-style:none; display:flex; flex-direction:column; gap:10px }
+  footer ul a{ font-size:14px; color:rgba(255,255,255,.7); font-family:var(--font-body); }
+  footer ul a:hover{ color:#fff }
+  footer .grid h6.rd{ font-family:var(--font-display); font-size:22px; letter-spacing:0; text-transform:none }
+  footer .bot{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top: 32px; flex-wrap:wrap; gap:18px;
+    color:rgba(255,255,255,.55); font-size:12px;
+    font-family:var(--font-body);
+  }
+  footer .bot .word{ font-family:var(--font-body); font-weight:700; font-size:14px; color:#fff }
+  footer .bot .links{ display:flex; gap:24px; flex-wrap:wrap }
+  footer .bot a{ color:rgba(255,255,255,.55) }
+  footer .bot a:hover{ color:#fff }
+  @media (max-width:900px){
+    footer .top{ grid-template-columns:1fr; gap:32px }
+    footer .grid{ grid-template-columns: 1fr 1fr }
+  }
+  @media (max-width:560px){ footer .grid{ grid-template-columns:1fr } }
+</style>
+</head>
+<body data-subbrand="ralph-and-doug" data-page-key="kids-product">
+
+  <!-- Announcement Bar -->
+  <div class="announce" role="region" aria-label="Hinweis">
+    <span class="announce__inner">
+      <span>Stickerbogen bei jeder Bestellung über 25&nbsp;€</span>
+      <span aria-hidden="true">·</span>
+      <span>Kostenloser Versand ab 50&nbsp;€</span>
+    </span>
+  </div>
+
+  <!-- Nav -->
+  <nav class="nav" aria-label="Hauptnavigation">
+    <div class="wrap nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Ralph and Doug Startseite">
+        <img src="../assets/ralph-and-doug-wordmark-black.png" alt="Ralph and Doug" class="nav__logo-img">
+      </a>
+      <div class="nav__links" role="navigation">
+        <a href="product.html" class="active">Schallzahnbürste</a>
+        <a href="index.html#zahnpasta">Zahnpasta</a>
+        <a href="index.html#geschenkbox">Geschenkboxen</a>
+        <a href="index.html#buch">Buch &amp; Sticker</a>
+        <a href="index.html#story">Unsere Geschichte</a>
+      </div>
+      <div class="nav__right">
+        <a href="../index.html" class="nav__back" aria-label="Zurück zum Hauptshop">← Zum Hauptshop</a>
+        <a href="#" class="hide-md" aria-label="Suche">Suche</a>
+        <a href="#" class="hide-md" aria-label="Konto">Konto</a>
+        <a href="#" class="nav__cart" aria-label="Warenkorb">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 7z"></path><path d="M9 7V5a3 3 0 0 1 6 0v2"></path></svg>
+          <span class="num">2</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PDP Intro band -->
+  <div class="pdp-intro">
+    <div class="wrap pdp-intro__inner">
+      <span class="pdp-intro__crumbs">
+        <a href="index.html">Ralph and Doug</a>
+        &nbsp;·&nbsp;
+        <a href="index.html#kollektion">Kollektion</a>
+        &nbsp;·&nbsp;
+        Ralph Schallzahnbürste
+      </span>
+      <span class="pdp-intro__badges">
+        <span class="pill pill--solid">Bestseller</span>
+        <span class="pill">Ab 3 Jahren</span>
+        <span class="pill">Dermatologisch geprüft</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- PDP Gallery + Buy box -->
+  <main class="pdp">
+    <div class="wrap">
+      <div class="pdp__grid">
+
+        <div class="pdp__gallery">
+          <div class="pdp__thumbs" id="thumbs">
+            <div class="pdp__thumb active" data-index="0"><img src="../images/rd-toothbrush-packaging.jpg" alt=""></div>
+            <div class="pdp__thumb" data-index="1"><img src="../images/rd-giftbox.jpg" alt=""></div>
+            <div class="pdp__thumb" data-index="2"><img src="../images/rd-tshirt-ralph.jpg" alt=""></div>
+            <div class="pdp__thumb" data-index="3"><img src="../images/rd-book.jpg" alt=""></div>
+            <div class="pdp__thumb" data-index="4"><img src="../images/rd-steiff-plush.jpg" alt=""></div>
+          </div>
+          <div class="pdp__main" id="mainImg">
+            <span class="pdp__media-tag"><span class="pill pill--lavendel">Verpackung</span></span>
+            <img src="../images/rd-toothbrush-packaging.jpg" alt="Ralph Schallzahnbürste — Verpackung" data-index="0">
+            <img src="../images/rd-giftbox.jpg" alt="Ralph Schallzahnbürste — Geschenkbox" data-index="1" class="hidden">
+            <img src="../images/rd-tshirt-ralph.jpg" alt="Ralph T-Shirt" data-index="2" class="hidden">
+            <img src="../images/rd-book.jpg" alt="Ralph and Doug Buch" data-index="3" class="hidden">
+            <img src="../images/rd-steiff-plush.jpg" alt="Ralph und Doug Plüschtiere" data-index="4" class="hidden">
+          </div>
+        </div>
+
+        <div class="pdp__buy">
+          <span class="pdp__eyebrow">Ralph · Schallzahnbürste · Ab 3 Jahren</span>
+          <h1 class="pdp__title">
+            Ralph.
+            <span class="alt">Putzt sorgfältig.</span>
+          </h1>
+          <p class="pdp__lead">
+            Die erste Schallzahnbürste, auf die Kinder sich freuen. Sanfte 31.000 Bewegungen pro Minute, kindgerechtes Griffstück, integrierter Timer mit Ralph-Stimme. Mit Buch und Stickerbogen.
+          </p>
+          <div class="pdp__rating"><span class="stars">★★★★★</span> 4,8 (412 Bewertungen)</div>
+
+          <div class="pdp__price">
+            <span class="pdp__price-now">69,00 €</span>
+            <span class="pdp__price-meta">inkl. MwSt. · zzgl. Versand · oder 3× 23,00 € mit Klarna</span>
+          </div>
+
+          <div class="pdp__opt">
+            <span class="pdp__opt-label">Farbe</span>
+            <div class="pdp__chips">
+              <button class="pdp__chip on">Indigo</button>
+              <button class="pdp__chip">Lavendel</button>
+              <button class="pdp__chip">Creme</button>
+            </div>
+          </div>
+
+          <div class="pdp__opt">
+            <span class="pdp__opt-label">Bürstenkopf</span>
+            <div class="pdp__chips">
+              <button class="pdp__chip on">Soft (Standard)</button>
+              <button class="pdp__chip">Extra Soft</button>
+            </div>
+          </div>
+
+          <div class="pdp__opt">
+            <span class="pdp__opt-label">Menge</span>
+            <div class="pdp__qty">
+              <button aria-label="Weniger">−</button>
+              <input type="text" value="1" inputmode="numeric" aria-label="Menge">
+              <button aria-label="Mehr">+</button>
+            </div>
+          </div>
+
+          <a href="#" class="btn btn--primary btn--block">In den Warenkorb · 69,00 € <span class="arr">→</span></a>
+
+          <div class="pdp__pills">
+            <span class="pdp__pill">Dermatologisch geprüft</span>
+            <span class="pdp__pill">30 Tage Probeputzen</span>
+            <span class="pdp__pill">CE &amp; Bio</span>
+            <span class="pdp__pill">Sticker inklusive</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Trust strip -->
+  <div class="trust-strip">
+    <div class="wrap trust-strip__row">
+      <div class="trust-strip__item">
+        <span class="trust-strip__big">31k</span>
+        <span class="trust-strip__small">Bewegungen / min</span>
+      </div>
+      <div class="trust-strip__item">
+        <span class="trust-strip__big">2 min</span>
+        <span class="trust-strip__small">Putztimer mit Ralph</span>
+      </div>
+      <div class="trust-strip__item">
+        <span class="trust-strip__big">8 Wo</span>
+        <span class="trust-strip__small">Akku-Laufzeit</span>
+      </div>
+      <div class="trust-strip__item">
+        <span class="trust-strip__big">3+</span>
+        <span class="trust-strip__small">Empfohlenes Alter</span>
+      </div>
+      <div class="trust-strip__item">
+        <span class="trust-strip__big">CE</span>
+        <span class="trust-strip__small">Dermatologisch geprüft</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <section class="hiw">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <span class="num">No. 02 — Routine</span>
+          <h2 class="display-md">Wie es<br>funktioniert.</h2>
+        </div>
+        <div class="right">
+          <p class="body-lg">Drei Schritte, zweimal am Tag. Ralph erklärt es. Doug sagt "Quack". Beide putzen.</p>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="hiw__grid">
+        <div class="hiw__frame">
+          <div>
+            <div class="hiw__num">Schritt 01</div>
+            <div class="hiw__caption" style="margin-top:14px">Drücken.</div>
+          </div>
+          <p class="hiw__sub">Knopf einmal drücken — Ralph startet sanft. Zweimal für stärkeren Modus.</p>
+        </div>
+        <div class="hiw__frame">
+          <div>
+            <div class="hiw__num">Schritt 02</div>
+            <div class="hiw__caption" style="margin-top:14px">Putzen.</div>
+          </div>
+          <p class="hiw__sub">Zwei Minuten, vier Quadranten. Ralph piepst alle 30 Sekunden, damit du weiterziehst.</p>
+        </div>
+        <div class="hiw__frame">
+          <div>
+            <div class="hiw__num">Schritt 03</div>
+            <div class="hiw__caption" style="margin-top:14px">Spülen.</div>
+          </div>
+          <p class="hiw__sub">Becher in die Hand, Mund ausspülen, Bürste abspülen. Doug sagt: "Quack."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specs -->
+  <section class="specs">
+    <div class="wrap">
+      <div class="sec-head" style="border-bottom:0; margin-bottom:0; padding-bottom:0">
+        <div class="left">
+          <span class="num">No. 03 — Spezifikationen</span>
+          <h2 class="display-md">Für Eltern,<br>die alles wissen wollen.</h2>
+        </div>
+        <div class="right">
+          <p class="body-lg">Technische Substanz von Zahnheld, kindgerecht ummantelt. Wissenschaftlich fundiert, dermatologisch geprüft.</p>
+        </div>
+      </div>
+      <div class="specs__grid">
+        <div class="specs__col">
+          <h3>Technik</h3>
+          <div class="specs__row"><span class="specs__key">Schwingungen</span><span class="specs__val">31.000 / min</span></div>
+          <div class="specs__row"><span class="specs__key">Putzmodi</span><span class="specs__val">2 (Soft · Standard)</span></div>
+          <div class="specs__row"><span class="specs__key">Putztimer</span><span class="specs__val">2 Min · 4 Quadranten</span></div>
+          <div class="specs__row"><span class="specs__key">Akku</span><span class="specs__val">8 Wochen / Ladung</span></div>
+          <div class="specs__row"><span class="specs__key">Ladung</span><span class="specs__val">USB-C induktiv</span></div>
+          <div class="specs__row"><span class="specs__key">Wasserschutz</span><span class="specs__val">IPX7</span></div>
+        </div>
+        <div class="specs__col">
+          <h3>Material &amp; Sicherheit</h3>
+          <div class="specs__row"><span class="specs__key">Empfohlenes Alter</span><span class="specs__val">3 — 9 Jahre</span></div>
+          <div class="specs__row"><span class="specs__key">Griff</span><span class="specs__val">Bio-Polymer, kindgerecht</span></div>
+          <div class="specs__row"><span class="specs__key">Borsten</span><span class="specs__val">DuPont Soft, BPA-frei</span></div>
+          <div class="specs__row"><span class="specs__key">Geräuschpegel</span><span class="specs__val">&lt; 50 dB</span></div>
+          <div class="specs__row"><span class="specs__key">Zertifizierung</span><span class="specs__val">CE · Made in Germany</span></div>
+          <div class="specs__row"><span class="specs__key">Garantie</span><span class="specs__val">2 Jahre</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="reviews">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <span class="num">No. 04 — Bewertungen</span>
+          <h2 class="display-md">Was Familien<br>uns schreiben.</h2>
+        </div>
+        <div class="right">
+          <p class="body-lg">412 Bewertungen, 4,8 von 5 Sternen. Verifizierte Käufer:innen — keine bezahlten Reviews.</p>
+        </div>
+        <div class="meta"><a href="#" class="btn btn--secondary">Alle Bewertungen <span class="arr">→</span></a></div>
+      </div>
+      <div class="reviews__grid">
+        <div class="review">
+          <span class="review__stars">★★★★★</span>
+          <h4 class="review__title">Ein Buch, das Routinen rettet.</h4>
+          <p class="review__body">Mein 4-Jähriger weigerte sich, die Zähne zu putzen. Mit Ralph und dem Buch sind wir jetzt bei zweimal täglich, ohne Diskussion. Was für ein Unterschied.</p>
+          <span class="review__by">Lara K. · verifiziert · April 2026</span>
+        </div>
+        <div class="review">
+          <span class="review__stars">★★★★★</span>
+          <h4 class="review__title">Premium, ohne Premium-Drama.</h4>
+          <p class="review__body">Schick verpackt, leise im Bad, sanft an den Zähnen. Endlich eine Kinder-Zahnbürste, die nicht nach Plastik-Spielzeug aussieht.</p>
+          <span class="review__by">Jonas M. · verifiziert · März 2026</span>
+        </div>
+        <div class="review">
+          <span class="review__stars">★★★★☆</span>
+          <h4 class="review__title">Doug rettet jeden Morgen.</h4>
+          <p class="review__body">Die Zahnpasta-Tube mit Doug ist der eigentliche Gewinn. Sticker-Bogen war beim ersten Set leer — wurde sofort nachgeschickt.</p>
+          <span class="review__by">Familie Bartels · verifiziert · Februar 2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross-sell -->
+  <section class="cross">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <span class="num">No. 05 — Auch interessant</span>
+          <h2 class="display-md">Die ganze<br>Familie.</h2>
+        </div>
+        <div class="right">
+          <p class="body-lg">Bürste plus Pasta plus Buch — die Routine, die zusammen funktioniert. Als Set sparst du 15&nbsp;%.</p>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="cross__grid">
+        <a class="cross-card" href="index.html#zahnpasta">
+          <div class="cross-card__media">
+            <img src="../images/rd-toothpaste-packaging.jpg" alt="Doug Zahnpasta">
+          </div>
+          <span class="cross-card__eyebrow">Doug · Zahnpasta</span>
+          <h3 class="cross-card__title">Doug.</h3>
+          <span class="cross-card__price">8,90 €</span>
+        </a>
+        <a class="cross-card" href="index.html#geschenkbox">
+          <div class="cross-card__media">
+            <img src="../images/rd-giftbox.jpg" alt="Geschenkbox">
+          </div>
+          <span class="cross-card__eyebrow">Geschenkbox</span>
+          <h3 class="cross-card__title">Die ganze Routine.</h3>
+          <span class="cross-card__price">109,00 €</span>
+        </a>
+        <a class="cross-card" href="index.html#buch">
+          <div class="cross-card__media">
+            <img src="../images/rd-book.jpg" alt="Ralph and Doug Buch">
+          </div>
+          <span class="cross-card__eyebrow">Buch · 32 Seiten</span>
+          <h3 class="cross-card__title">Das Buch.</h3>
+          <span class="cross-card__price">19,00 €</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <span class="num">No. 06 — Häufige Fragen</span>
+          <h2 class="display-md">Bevor du<br>kaufst.</h2>
+        </div>
+        <div class="right">
+          <p class="body-lg">Die Fragen, die Eltern uns stellen — bevor sie sich entscheiden.</p>
+        </div>
+      </div>
+      <div class="faq__list">
+        <div class="faq__item open">
+          <button class="faq__q">Ab welchem Alter ist Ralph geeignet?</button>
+          <div class="faq__a">Ralph ist für Kinder ab 3 Jahren entwickelt. Der Soft-Putzmodus ist sanft genug für Milchzähne, und das Griffstück passt in kleine Hände. Ab 7 Jahren kann auf den Standard-Modus gewechselt werden.</div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q">Welche Bürstenköpfe passen?</button>
+          <div class="faq__a">Es gibt zwei Bürstenköpfe: Soft (Standard, im Lieferumfang) und Extra Soft. Beide haben DuPont-Borsten, sind BPA-frei und sollten alle 12 Wochen ausgetauscht werden — wir erinnern dich automatisch.</div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q">Wie viel Fluorid ist in der Doug-Zahnpasta?</button>
+          <div class="faq__a">Doug enthält 1.000 ppm Fluorid für Kinder ab 3 Jahren — die von der Deutschen Gesellschaft für Zahn-, Mund- und Kieferheilkunde empfohlene Konzentration. Ohne Mikroplastik, ohne SLS, ohne Titandioxid.</div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q">Was ist im Lieferumfang enthalten?</button>
+          <div class="faq__a">Schallzahnbürste, ein Soft-Bürstenkopf, USB-C-Ladestation, das Begleitbuch (32 Seiten) und ein Stickerbogen. Versand kostenlos ab 50&nbsp;€, 30 Tage Rückgaberecht.</div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q">Wie laut ist die Bürste?</button>
+          <div class="faq__a">Unter 50&nbsp;dB — etwa so laut wie ein leises Gespräch. Bewusst gedämpft, damit empfindliche Kinder sich nicht erschrecken.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="wrap">
+      <div class="top">
+        <div class="foot__mark">
+          <img src="../assets/zahnheld-wordmark-white.png" alt="Zahnheld" class="foot__wordmark">
+        </div>
+        <div class="foot__signup">
+          <div>
+            <label>Newsletter</label>
+            <form class="foot__row" onsubmit="event.preventDefault();" style="margin-top:8px">
+              <input type="email" placeholder="Email-Adresse" aria-label="Email">
+              <button>Anmelden →</button>
+            </form>
+          </div>
+          <div>
+            <label>SMS</label>
+            <form class="foot__row" onsubmit="event.preventDefault();" style="margin-top:8px">
+              <input type="tel" placeholder="+49 …" aria-label="Mobil">
+              <button>SMS aktivieren →</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="grid">
+        <div>
+          <h6>Shop</h6>
+          <ul>
+            <li><a href="../index.html">Power · Schallzahnbürsten</a></li>
+            <li><a href="../index.html">Care · Tägliche Pflege</a></li>
+            <li><a href="../index.html">White · Whitening</a></li>
+            <li><a href="../index.html">Recovery · Regeneration</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6 class="rd">Ralph and Doug</h6>
+          <ul>
+            <li><a href="product.html">Schallzahnbürste</a></li>
+            <li><a href="index.html#zahnpasta">Zahnpasta</a></li>
+            <li><a href="index.html#geschenkbox">Geschenkbox</a></li>
+            <li><a href="index.html#buch">Buch &amp; Sticker</a></li>
+            <li><a href="index.html#story">Unsere Geschichte</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Marke</h6>
+          <ul>
+            <li><a href="#">Über uns</a></li>
+            <li><a href="#">Magazin</a></li>
+            <li><a href="#">Diagnose</a></li>
+            <li><a href="#">Pro-Site</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Service</h6>
+          <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Versand</a></li>
+            <li><a href="#">Retouren</a></li>
+            <li><a href="#">Kontakt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Rechtliches</h6>
+          <ul>
+            <li><a href="#">AGB</a></li>
+            <li><a href="#">Datenschutz</a></li>
+            <li><a href="#">Impressum</a></li>
+            <li><a href="#">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bot">
+        <span class="word">zahnheld® · © 2026</span>
+        <div class="links">
+          <a href="#">Instagram</a>
+          <a href="#">TikTok</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">Press</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<script>
+(function(){
+  // Gallery: thumb click switches main image
+  var thumbs = document.querySelectorAll('.pdp__thumb');
+  var imgs = document.querySelectorAll('.pdp__main img');
+  thumbs.forEach(function(t){
+    t.addEventListener('click', function(){
+      var idx = t.getAttribute('data-index');
+      thumbs.forEach(function(x){ x.classList.remove('active'); });
+      t.classList.add('active');
+      imgs.forEach(function(im){
+        if(im.getAttribute('data-index') === idx) im.classList.remove('hidden');
+        else im.classList.add('hidden');
+      });
+    });
+  });
+
+  // FAQ accordion
+  var faqQs = document.querySelectorAll('.faq__q');
+  faqQs.forEach(function(q){
+    q.addEventListener('click', function(){
+      q.parentElement.classList.toggle('open');
+    });
+  });
+
+  // Color chips
+  var chipGroups = document.querySelectorAll('.pdp__chips');
+  chipGroups.forEach(function(g){
+    g.addEventListener('click', function(e){
+      if(e.target.classList.contains('pdp__chip')){
+        g.querySelectorAll('.pdp__chip').forEach(function(c){ c.classList.remove('on'); });
+        e.target.classList.add('on');
+      }
+    });
+  });
+
+  // Quantity stepper
+  var qty = document.querySelector('.pdp__qty');
+  if(qty){
+    var input = qty.querySelector('input');
+    var btns = qty.querySelectorAll('button');
+    btns[0].addEventListener('click', function(){
+      var v = Math.max(1, (parseInt(input.value, 10) || 1) - 1);
+      input.value = v;
+    });
+    btns[1].addEventListener('click', function(){
+      var v = (parseInt(input.value, 10) || 1) + 1;
+      input.value = v;
+    });
+  }
+})();
+</script>
+
+<!-- Floating Page Switcher -->
+<div class="zh-switcher" data-zh-switcher>
+  <button class="zh-switcher__toggle" type="button" aria-expanded="false" aria-controls="zh-switcher-menu" aria-label="Seiten wechseln">
+    <span class="zh-switcher__dots" aria-hidden="true"><span></span><span></span><span></span></span>
+    <span class="zh-switcher__label">Seiten</span>
+  </button>
+  <ul id="zh-switcher-menu" class="zh-switcher__menu" role="menu">
+    <li role="none"><a role="menuitem" href="../index.html" data-key="landing"><span class="zh-switcher__num">01</span><span>Landing</span></a></li>
+    <li role="none"><a role="menuitem" href="../product.html" data-key="product"><span class="zh-switcher__num">02</span><span>Produkt</span></a></li>
+    <li role="none"><a role="menuitem" href="index.html" data-key="kids-landing"><span class="zh-switcher__num">03</span><span>Kids Landing</span></a></li>
+    <li role="none"><a role="menuitem" href="product.html" data-key="kids-product"><span class="zh-switcher__num">04</span><span>Kids Produkt</span></a></li>
+  </ul>
+</div>
+<style>
+  .zh-switcher{
+    position:fixed; right:20px; bottom:20px; z-index:9999;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size:11px; letter-spacing:.10em; text-transform:uppercase;
+  }
+  .zh-switcher *{ box-sizing:border-box }
+  .zh-switcher__toggle{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:12px 16px; border-radius:999px;
+    background:#000; color:#fff; border:1px solid #000;
+    cursor:pointer; font:inherit; letter-spacing:inherit; text-transform:inherit;
+    box-shadow:0 8px 24px rgba(0,0,0,.18);
+    transition:background .2s ease, color .2s ease, transform .2s ease;
+  }
+  .zh-switcher__toggle:hover{ background:#fff; color:#000 }
+  .zh-switcher.is-open .zh-switcher__toggle{ background:#fff; color:#000 }
+  .zh-switcher__dots{ display:inline-flex; gap:3px }
+  .zh-switcher__dots span{ width:4px; height:4px; border-radius:50%; background:currentColor; display:block }
+  .zh-switcher__menu{
+    position:absolute; right:0; bottom:calc(100% + 10px);
+    list-style:none; margin:0; padding:6px;
+    min-width:220px;
+    background:#fff; color:#000;
+    border:1px solid #000; border-radius:14px;
+    box-shadow:0 16px 40px rgba(0,0,0,.18);
+    transform-origin:bottom right;
+    transform:scale(.96) translateY(6px); opacity:0; pointer-events:none;
+    transition:transform .18s ease, opacity .18s ease;
+  }
+  .zh-switcher.is-open .zh-switcher__menu{
+    transform:scale(1) translateY(0); opacity:1; pointer-events:auto;
+  }
+  .zh-switcher__menu a{
+    display:flex; align-items:center; gap:12px;
+    padding:10px 14px; border-radius:10px;
+    color:#000; text-decoration:none;
+    font-family:inherit; font-size:11px; letter-spacing:inherit; text-transform:inherit;
+  }
+  .zh-switcher__menu a:hover{ background:#F5ECDC }
+  .zh-switcher__num{ color:#8A8A8A; font-variant-numeric:tabular-nums }
+  .zh-switcher__menu a[aria-current="page"]{ background:#000; color:#fff }
+  .zh-switcher__menu a[aria-current="page"] .zh-switcher__num{ color:#D5D2E8 }
+  @media (max-width:640px){
+    .zh-switcher{ right:12px; bottom:12px }
+    .zh-switcher__toggle .zh-switcher__label{ display:none }
+    .zh-switcher__toggle{ padding:12px }
+    .zh-switcher__menu{ min-width:200px }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .zh-switcher__toggle, .zh-switcher__menu{ transition:none }
+  }
+</style>
+<script>
+(function(){
+  var root = document.querySelector('[data-zh-switcher]');
+  if(!root) return;
+  var toggle = root.querySelector('.zh-switcher__toggle');
+  var menu   = root.querySelector('.zh-switcher__menu');
+  var key = (document.body.getAttribute('data-page-key') || '').toLowerCase();
+  menu.querySelectorAll('a').forEach(function(a){
+    if((a.getAttribute('data-key')||'').toLowerCase() === key){
+      a.setAttribute('aria-current','page');
+    }
+  });
+  function setOpen(open){
+    root.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  toggle.addEventListener('click', function(e){
+    e.stopPropagation();
+    setOpen(!root.classList.contains('is-open'));
+  });
+  document.addEventListener('click', function(e){
+    if(!root.contains(e.target)) setOpen(false);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') setOpen(false);
+  });
+})();
+</script>
+<!-- /Floating Page Switcher -->
+
+</body>
+</html>
