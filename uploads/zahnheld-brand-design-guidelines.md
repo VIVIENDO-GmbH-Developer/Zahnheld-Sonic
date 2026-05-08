@@ -134,10 +134,10 @@ Stilisierter Zahn als überlagerte Linework-Kontur. Mehrere parallele Linien erz
 | :---- | :---- | :---- |
 | **White** | `#FFFFFF` | Primary Background |
 | **Black** | `#000000` | Primary Text, Strong CTAs, Heavy Type |
-| **Anthrazit** | `#4A4A4A` *(approx)* | Secondary Text, Hairlines, Subtile UI |
-| **Mint** | `#B5DDC0` *(approx)* | CARE Sub-Brand Accent |
-| **Warm Sand** | `#E8D2B0` *(approx)* | RECOVERY Sub-Brand Accent, Card Backgrounds |
-| **Dusty Mauve** | `#B894A8` *(approx)* | CARE Sub-Brand Accent (B12-Linie) |
+| **Anthrazit** | `#535353` | Secondary Text, Hairlines, Subtile UI |
+| **Mint** | `#A8D7C1` | CARE Sub-Brand Accent |
+| **Warm Sand** | `#EBCFB5` | RECOVERY Sub-Brand Accent, Card Backgrounds |
+| **Dusty Mauve** | `#B894B4` | CARE Sub-Brand Accent (B12-Linie) |
 
 Hex-Werte sind aus den Akkvrat-Farbfeldern approximiert. Vor finalem Web-Rollout mit Akkvrat verbindlich abgleichen.
 
