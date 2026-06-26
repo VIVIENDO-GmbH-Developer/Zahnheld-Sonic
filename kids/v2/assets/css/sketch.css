@@ -1,43 +1,48 @@
 /* ============================================================================
-   Ralph & Doug — SKETCH SKIN (v2)
-   Hand-drawn sketchbook look: cream paper, periwinkle/navy tritone imagery,
-   wobbly ink borders, marker headings. Loaded AFTER styles.css and overrides it.
-   Two intensities via html[data-skin]:
-     "full"  = full sketchbook (paper grain, wobbly ink borders, marker type)
-     "light" = palette + tritone + sketchy accents, cleaner type & frames
-   Toggle persists in localStorage (assets/js/skin.js). Default: full.
+   Ralph & Doug — SKETCHBOOK SKIN (v2)
+   One cohesive hand-drawn look: warm cream paper with grain + vignette,
+   periwinkle/navy tritone imagery, wobbly ink frames (varied per tile), marker
+   headings with squiggle underlines, hand-drawn buttons. Loaded after styles.css
+   and overrides it. (The earlier "light" variant + toggle were removed.)
    ============================================================================ */
 
 :root {
   --paper: #FAF8EF;          /* warm cream paper */
-  --paper-2: #F1EEE0;
+  --paper-2: #F1EEE0;        /* deeper paper (placeholders) */
   --hand: "Gochi Hand", "Comic Sans MS", cursive;
+  --ink-shadow: rgba(27, 26, 74, .14);
+  /* hand-drawn squiggle underline (cobalt ink) */
+  --squiggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='12' viewBox='0 0 120 12'%3E%3Cpath d='M2 7C18 2 30 11 46 6 62 1 76 11 92 6s24 1 26 0' fill='none' stroke='%233D45A5' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
 /* ---------------- PAPER GROUND ---------------- */
-body { background-color: var(--paper); color: var(--ink); }
-
-/* Subtle paper grain only in the full sketchbook skin. */
-html[data-skin="full"] body {
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  /* fine pencil-tooth grain + soft aged vignette */
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-  background-blend-mode: multiply;
+    radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, .5), transparent 55%),
+    radial-gradient(130% 120% at 50% 100%, rgba(27, 26, 74, .05), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-attachment: fixed, fixed, scroll;
+  background-blend-mode: normal, multiply, multiply;
 }
 
-/* ---------------- TRITONE IMAGERY (both skins) ----------------
-   Maps the old colourful renders into the brand's navy/periwinkle/cream so the
-   whole page reads monochrome. Real hand-drawn art (.is-art) is left untouched. */
-.pair__item img, .bleed img, .polaroid__photo img, .cats__item img,
-.look img, .dg img, .hero__media, .intro__display {
-  filter: url(#rd-tritone);
-}
-.is-art { filter: none !important; }
+/* Imagery + video keep their original colours (no tint). */
 
 /* ---------------- NAV ---------------- */
 .nav a, .nav__primary a, .nav__secondary a { color: var(--ink); }
 .nav a.is-active { color: var(--cobalt); }
-.nav.is-solid { background: rgba(250, 248, 239, .88); backdrop-filter: blur(8px); }
+.nav.is-solid { background: rgba(250, 248, 239, .9); backdrop-filter: blur(8px); box-shadow: 0 1px 0 var(--ink-shadow); }
 .nav__burger span { background: var(--ink); }
+/* sketchy underline grows on hover */
+.nav__primary a { position: relative; }
+.nav__primary a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 7px;
+  background: var(--squiggle) center / 100% 100% no-repeat;
+  opacity: 0; transform: scaleX(.4); transform-origin: left; transition: opacity .25s var(--ease), transform .25s var(--ease);
+}
+.nav__primary a:hover::after, .nav__primary a.is-active::after { opacity: 1; transform: scaleX(1); }
 
 /* ---------------- HERO + LOADER (paper, ink) ---------------- */
 .hero, .hero__stage { background: var(--paper); }
@@ -51,9 +56,13 @@ html[data-skin="full"] body {
 .lookbook, .cats, .bleed { background: var(--paper); }
 .statement em { color: var(--cobalt); }
 
-/* ---------------- MARQUEE ---------------- */
-.marquee { background: var(--cobalt); }
-.marquee__track { color: var(--paper); }
+/* ---------------- MARQUEE (ink ticker between dashed rules) ---------------- */
+.marquee {
+  background: var(--cobalt);
+  border-top: 2.5px dashed rgba(250, 248, 239, .55);
+  border-bottom: 2.5px dashed rgba(250, 248, 239, .55);
+}
+.marquee__track { color: var(--paper); font-family: var(--hand); letter-spacing: .02em; }
 
 /* ---------------- PLACEHOLDERS ---------------- */
 .ph { background: var(--paper-2); border-color: var(--ink); }
@@ -61,59 +70,54 @@ html[data-skin="full"] body {
 .ph__prompt { color: var(--ink); }
 
 /* ============================================================================
-   FULL SKETCHBOOK SKIN
+   WOBBLY HAND-DRAWN INK FRAMES
+   Base frame + per-tile wobble variants so no two frames look identical.
+   Transform-free (the base reveal animation owns img transforms).
    ============================================================================ */
-
-/* Wobbly hand-drawn ink frames around every image + placeholder. */
-html[data-skin="full"] .pair__item img,
-html[data-skin="full"] .look img,
-html[data-skin="full"] .cats__item img,
-html[data-skin="full"] .dg img,
-html[data-skin="full"] .polaroid__photo img,
-html[data-skin="full"] .bleed__inner img,
-html[data-skin="full"] .ph {
+.pair__item img, .look img, .cats__item img, .dg img, .bleed__inner img, .ph {
   border: 3px solid var(--ink);
   border-radius: 255px 17px 235px 22px / 20px 235px 18px 255px;
-  box-shadow: 7px 7px 0 rgba(27, 26, 74, .13);
+  box-shadow: 7px 7px 0 var(--ink-shadow), inset 0 0 0 1px rgba(27, 26, 74, .18);
+  transition: box-shadow .3s var(--ease);
+}
+/* wobble variety across the grids */
+.cats__item:nth-child(3n+2) img, .dg:nth-child(3n+2) img, .look:nth-child(3n+2) img {
+  border-radius: 18px 240px 20px 250px / 250px 18px 235px 16px;
+}
+.cats__item:nth-child(3n) img, .dg:nth-child(3n) img, .look:nth-child(3n) img {
+  border-radius: 240px 20px 250px 16px / 16px 250px 22px 235px;
+}
+.pair__item:nth-child(2n) img { border-radius: 20px 250px 18px 240px / 240px 16px 250px 20px; }
+
+/* shadow lift on hover (scale is handled by the base for cats/look) */
+.cats__item:hover img, .look:hover img, .dg:hover img, .pair__item:hover img {
+  box-shadow: 11px 11px 0 rgba(27, 26, 74, .22), inset 0 0 0 1px rgba(27, 26, 74, .18);
 }
 
-/* Marker type for every display-level heading. */
-html[data-skin="full"] h2,
-html[data-skin="full"] .parallax__headline,
-html[data-skin="full"] .domino__title,
-html[data-skin="full"] .statement p,
-html[data-skin="full"] .cap__title em,
-html[data-skin="full"] .credits__label em,
-html[data-skin="full"] .credits__value,
-html[data-skin="full"] .look__no em,
-html[data-skin="full"] .domino__no,
-html[data-skin="full"] .loader__kicker,
-html[data-skin="full"] .hero__kicker,
-html[data-skin="full"] .hero__season,
-html[data-skin="full"] .intro__top,
-html[data-skin="full"] .intro__bottom {
+/* polaroid keeps its taped-photo look (no ink frame), just the tritone */
+
+/* ============================================================================
+   MARKER TYPOGRAPHY
+   ============================================================================ */
+h2, .parallax__headline, .domino__title, .statement p, .cap__title em,
+.credits__label em, .credits__value, .look__no em, .domino__no,
+.loader__kicker, .hero__kicker, .hero__season, .intro__top, .intro__bottom {
   font-family: var(--hand);
   font-style: normal;
-  letter-spacing: .01em;
+  letter-spacing: .015em;
+  line-height: 1.18;
 }
-html[data-skin="full"] .statement p { line-height: 1.25; }
+.statement p { line-height: 1.28; }
 
-/* ============================================================================
-   LIGHT SKIN — palette + tritone + accents, editorial type kept
-   ============================================================================ */
-html[data-skin="light"] .pair__item img,
-html[data-skin="light"] .look img,
-html[data-skin="light"] .cats__item img,
-html[data-skin="light"] .dg img,
-html[data-skin="light"] .polaroid__photo img,
-html[data-skin="light"] .bleed__inner img,
-html[data-skin="light"] .ph {
-  border: 1.5px solid rgba(27, 26, 74, .4);
-  border-radius: 12px;
+/* squiggle underline under the main section titles */
+.collection-credits h2, .domino__title {
+  display: inline-block;
+  background: var(--squiggle) left bottom / 118px 9px repeat-x;
+  padding-bottom: 14px;
 }
 
 /* ============================================================================
-   HAND-DRAWN CTA / BUTTONS (both skins)
+   HAND-DRAWN CTA / BUTTONS
    ============================================================================ */
 .cta {
   background: var(--peri); color: var(--ink);
@@ -121,7 +125,7 @@ html[data-skin="light"] .ph {
   border-radius: 235px 18px 220px 16px / 16px 220px 18px 235px;
   box-shadow: 5px 5px 0 var(--ink);
   font-family: var(--hand);
-  letter-spacing: .01em;
+  letter-spacing: .02em;
 }
 .cta:hover {
   background: var(--cobalt); color: var(--paper);
@@ -129,27 +133,7 @@ html[data-skin="light"] .ph {
   box-shadow: 7px 7px 0 var(--ink);
 }
 
-/* ============================================================================
-   SKIN TOGGLE (dev control)
-   ============================================================================ */
-.skin-toggle {
-  position: fixed; right: 16px; bottom: 16px; z-index: 10000;
-  display: flex; background: var(--paper);
-  border: 2.5px solid var(--ink);
-  border-radius: 235px 14px 220px 14px / 14px 220px 14px 235px;
-  box-shadow: 4px 4px 0 var(--ink);
-  font-family: var(--hand); overflow: hidden;
+@media (prefers-reduced-motion: reduce) {
+  .cta:hover { transform: none; }
+  .nav__primary a::after { transition: none; }
 }
-.skin-toggle button {
-  border: 0; background: transparent; color: var(--ink);
-  padding: 9px 15px; font: inherit; font-size: 15px; cursor: pointer; line-height: 1;
-}
-.skin-toggle button + button { border-left: 2px solid var(--ink); }
-.skin-toggle button[aria-pressed="true"] { background: var(--cobalt); color: var(--paper); }
-@media (max-width: 600px) { .skin-toggle { right: 10px; bottom: 10px; } .skin-toggle button { padding: 8px 12px; font-size: 14px; } }
-
-/* Keep the toggle out of the cinematic intro; reveal it with the page. */
-.skin-toggle { opacity: 0; pointer-events: none; transition: opacity .4s var(--ease); }
-html.is-loaded .skin-toggle { opacity: 1; pointer-events: auto; }
-
-@media (prefers-reduced-motion: reduce) { .cta:hover { transform: none; } }
