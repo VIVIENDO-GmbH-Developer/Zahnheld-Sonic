@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" data-skin="full">
+<html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,15 +31,6 @@
   ============================================================================
 -->
 <body>
-
-<!-- Tritone filter: maps imagery into navy / periwinkle / cream (brand monochrome) -->
-<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute"><filter id="rd-tritone" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0 0.33 0.33 0.33 0 0 0.33 0.33 0.33 0 0 0 0 0 1 0"/><feComponentTransfer><feFuncR type="table" tableValues="0.106 0.50 0.98"/><feFuncG type="table" tableValues="0.102 0.525 0.972"/><feFuncB type="table" tableValues="0.29 0.80 0.937"/></feComponentTransfer></filter></svg>
-
-<!-- Skin toggle: full sketchbook vs lighter variant -->
-<div class="skin-toggle" role="group" aria-label="Stil umschalten">
-  <button type="button" data-skin="full" aria-pressed="true">Skizzenbuch</button>
-  <button type="button" data-skin="light" aria-pressed="false">Leicht</button>
-</div>
 
 <!-- ============ PAGE LOADER (cinematic intro) ============ -->
 <div class="loader" id="loader" data-loader aria-hidden="true">
@@ -335,7 +326,6 @@
   <p class="footer__note">Konzept-Landingpage · Platzhalter mit AI-Prompts (P01–P41) · Marke &amp; Charaktere &copy; Zahnheld Kids</p>
 </footer>
 
-<script src="assets/js/skin.js"></script>
 <script src="assets/js/script.js"></script>
 </body>
 </html>
