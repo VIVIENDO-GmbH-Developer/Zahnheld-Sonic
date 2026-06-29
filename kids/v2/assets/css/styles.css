@@ -4,6 +4,14 @@
    full-bleed) recolored to the Ralph & Doug brand palette.
    ================================================================= */
 
+@font-face {
+  font-family: "Perfectly Amicable";
+  src: url("../fonts/perfectly-amicable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg: #ffffff;
   --lilac: #ECECF7;          /* soft placeholder fill */
@@ -15,7 +23,7 @@
   --pink: #EC6FA9;
   --yellow: #F6C34A;
   --grey: #8C8CAB;
-  --display: "Playfair Display", "Didot", "GFS Didot", Georgia, serif;
+  --display: "Perfectly Amicable", "Playfair Display", "Didot", "GFS Didot", Georgia, serif;
   --sans: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, sans-serif;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   --nav-h: 58px;
